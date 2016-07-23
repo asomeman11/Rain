@@ -9,7 +9,7 @@ public class Player extends Mob {
 	// Duplicate @see Mob.moving
 	private boolean walking = false;
 	private Keyboard input;
-	public Sprite sprite = Sprite.playerBack;
+	public Sprite sprite = Sprite.playerSouth;
 	private int anim = 0;
 
 	public Player(Keyboard input) {
@@ -46,39 +46,75 @@ public class Player extends Mob {
 		// Make the mod number bigger for slower anim, lower = faster
 
 		if (dir == Direction.NORTH) {
-			sprite = Sprite.playerForward;
+			sprite = Sprite.playerNorth;
 			if (walking) {
 				if (anim % 20 > 10) {
-					sprite = Sprite.playerForward_0;
+					sprite = Sprite.playerNorth_0;
 				} else {
-					sprite = Sprite.playerForward_1;
+					sprite = Sprite.playerNorth_1;
 				}
 			}
 		} else if (dir == Direction.EAST) {
-			sprite = Sprite.playerRight;
+			sprite = Sprite.playerEast;
 			if (walking) {
 				if (anim % 20 > 10) {
-					sprite = Sprite.playerRight_0;
+					sprite = Sprite.playerEast_0;
 				} else {
-					sprite = Sprite.playerRight_1;
+					sprite = Sprite.playerEast_1;
 				}
 			}
 		} else if (dir == Direction.SOUTH) {
-			sprite = Sprite.playerBack;
+			sprite = Sprite.playerSouth;
 			if (walking) {
 				if (anim % 20 > 10) {
-					sprite = Sprite.playerBack_0;
+					sprite = Sprite.playerSouth_0;
 				} else {
-					sprite = Sprite.playerBack_1;
+					sprite = Sprite.playerSouth_1;
 				}
 			}
 		} else if (dir == Direction.WEST) {
-			sprite = Sprite.playerLeft;
+			sprite = Sprite.playerWest;
 			if (walking) {
 				if (anim % 20 > 10) {
-					sprite = Sprite.playerLeft_0;
+					sprite = Sprite.playerWest_0;
 				} else {
-					sprite = Sprite.playerLeft_1;
+					sprite = Sprite.playerWest_1;
+				}
+			}
+		} else if (dir == Direction.NORTH_EAST) {
+			sprite = Sprite.playerEast;
+			if (walking) {
+				if (anim % 20 > 10) {
+					sprite = Sprite.playerEast_0;
+				} else {
+					sprite = Sprite.playerEast_1;
+				}
+			}
+		} else if (dir == Direction.NORTH_WEST) {
+			sprite = Sprite.playerEast;
+			if (walking) {
+				if (anim % 20 > 10) {
+					sprite = Sprite.playerEast_0;
+				} else {
+					sprite = Sprite.playerEast_1;
+				}
+			}
+		} else if (dir == Direction.SOUTH_EAST) {
+			sprite = Sprite.playerEast;
+			if (walking) {
+				if (anim % 20 > 10) {
+					sprite = Sprite.playerEast_0;
+				} else {
+					sprite = Sprite.playerEast_1;
+				}
+			}
+		} else if (dir == Direction.SOUTH_WEST) {
+			sprite = Sprite.playerEast;
+			if (walking) {
+				if (anim % 20 > 10) {
+					sprite = Sprite.playerEast_0;
+				} else {
+					sprite = Sprite.playerEast_1;
 				}
 			}
 		}
