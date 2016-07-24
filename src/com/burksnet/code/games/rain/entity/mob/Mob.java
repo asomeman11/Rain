@@ -7,6 +7,7 @@ import com.burksnet.code.games.rain.level.tile.Tile;
 
 public abstract class Mob extends Entity {
 
+	// Remember this is the difference from the middle to the outer bound
 	protected int topOfPlayerCollisionBound = 15;
 	protected int bottomOfPlayerCollisionBound = 15;
 
@@ -19,7 +20,7 @@ public abstract class Mob extends Entity {
 	protected Direction dir = Direction.NORTH;
 	protected boolean moving = false;
 	
-	public double speed = 1;
+	public int speed = 1;
 
 	public void move(int xa, int ya) {
 
