@@ -9,6 +9,12 @@ public abstract class Mob extends Entity {
 
 	protected int topOfPlayerCollisionBound = 15;
 	protected int bottomOfPlayerCollisionBound = 15;
+
+	public Mob(Level level) {
+		super(level);
+		// TODO Auto-generated constructor stub
+	}
+
 	protected Sprite sprite;
 	protected Direction dir = Direction.NORTH;
 	protected boolean moving = false;

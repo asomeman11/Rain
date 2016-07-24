@@ -7,11 +7,17 @@ import com.burksnet.code.games.rain.level.Level;
 
 public abstract class Entity {
 
+	
+	
 	public int x, y;
 	private boolean removed = false;
 	protected Level level;
 	protected final Random random = new Random();
 
+	public Entity(Level level){
+		this.level = level;
+	}
+	
 	public void update() {
 	}
 
