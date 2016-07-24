@@ -3,6 +3,7 @@ package com.burksnet.code.games.rain.entity.mob;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.input.Keyboard;
+import com.burksnet.code.games.rain.level.Level;
 
 public class Player extends Mob {
 
@@ -19,6 +20,8 @@ public class Player extends Mob {
 	}
 
 	public Player(int x, int y, Keyboard input) {
+		super.bottomOfPlayerCollisionBound = 15;
+		super.topOfPlayerCollisionBound = 9;
 		this.x = x;
 		this.y = y;
 		this.input = input;

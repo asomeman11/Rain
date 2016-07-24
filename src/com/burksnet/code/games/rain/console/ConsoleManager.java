@@ -73,7 +73,7 @@ public class ConsoleManager implements Runnable {
 				if (array.length > 2) {
 					throw new ArrayIndexOutOfBoundsException(array.length - 1);
 				}
-				double local1 = Double.parseDouble(array[1]);
+				int local1 = Integer.parseInt(array[1]);
 				System.out.println("User Speed changed.");
 				game.player.speed = local1;
 			} catch (NumberFormatException e) {

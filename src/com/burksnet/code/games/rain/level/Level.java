@@ -59,7 +59,10 @@ public class Level {
 	// Flower = 0xFFFF00
 	// Rock = 0x7f7f00
 	// Water = 0x0000ff
-	private Tile getTile(int x, int y) {
+	
+	//TODO Remake this getTile Method. Seems inefficient. May not be.
+	
+	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) {
 			// System.out.println("void");
 			return Tile.voidTile;
