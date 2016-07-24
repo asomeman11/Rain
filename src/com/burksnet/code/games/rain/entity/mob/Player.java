@@ -13,15 +13,16 @@ public class Player extends Mob {
 	public Sprite sprite = Sprite.playerSouth;
 	private int anim = 0;
 
-	public Player(Keyboard input) {
-
-		this.speed = 20;
-		this.input = input;
+	public Player(Keyboard input, Level level) {
+		this(0, 0, input, level);
 	}
 
-	public Player(int x, int y, Keyboard input) {
+	public Player(int x, int y, Keyboard input, Level level) {
+		super(level);
+		
 		super.bottomOfPlayerCollisionBound = 15;
 		super.topOfPlayerCollisionBound = 9;
+		
 		this.x = x;
 		this.y = y;
 		this.input = input;
@@ -41,7 +42,7 @@ public class Player extends Mob {
 	}
 
 	public Player respawn() {
-		return new Player(input);
+		return new Player(level.spawnX, level.spawnY, input, level);
 	}
 
 	private void directionUpdate() {

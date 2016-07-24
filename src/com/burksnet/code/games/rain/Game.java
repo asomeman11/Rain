@@ -56,7 +56,7 @@ public class Game extends Canvas implements Runnable {
 		focus = new BurkFocusListener(this);
 		// ADD THE THING
 		level = new SpawnLevel("/maps/spawn_new.png");
-		player = new Player(400, 400, key);
+		player = new Player(level.spawnX, level.spawnY, key, level);
 
 		addKeyListener(key);
 		addFocusListener(focus);
@@ -197,8 +197,8 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 
-		
-		
+
+
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);
 		cm.init(game);

@@ -9,6 +9,8 @@ public class Level {
 	protected int[] tilesInt;
 	protected String path;
 
+	public int spawnX, spawnY;
+	
 	protected int[] tiles;
 
 	// Rand Gen
@@ -17,6 +19,7 @@ public class Level {
 		this.height = height;
 		tilesInt = new int[width * height];
 		generateLevel();
+		findSpawn(Tile.col_spawn);
 	}
 
 	protected void generateLevel() {
@@ -27,6 +30,22 @@ public class Level {
 	public Level(String path) {
 		loadLevel(path);
 		generateLevel();
+		findSpawn(Tile.col_spawn);
+	}
+
+	//Relies on a Tile being 16*16d
+	protected void findSpawn(int col){
+		for(int y = 0; y < height; y++){
+			for(int x = 0; x < width; x++){
+				if (tiles[x + y * width] == Tile.col_spawn) {
+					spawnX = x*16;
+					spawnY = y*16;
+					//In future I might make it so multiple SpawnTiles can be found. At the moment that isn't the case.
+					return;
+				}
+			}
+		}
+
 	}
 
 	protected void loadLevel(String path) {
@@ -80,6 +99,10 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_rock) {
 			// System.out.println("water");
 			return Tile.rock;
+		}
+		if (tiles[x + y * width] == Tile.col_spawn) {
+
+			return Tile.spawn;
 		}
 
 		return Tile.voidTile;

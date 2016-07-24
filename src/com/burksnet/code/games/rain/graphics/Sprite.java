@@ -11,6 +11,7 @@ public class Sprite {
 	public static Sprite water = new Sprite(16, 1, 0, SpriteSheet.tiles16);
 	public static Sprite rock = new Sprite(16, 2, 0, SpriteSheet.tiles16);
 	public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
+	public static Sprite spawn = new Sprite(16, 4, 0, SpriteSheet.tiles16);
 
 	public static Sprite playerSouth = new Sprite(32, 0, 0, SpriteSheet.sprites32);
 	public static Sprite playerNorth = new Sprite(32, 1, 0, SpriteSheet.sprites32);
