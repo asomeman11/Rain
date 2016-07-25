@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -14,6 +16,7 @@ import com.burksnet.code.games.rain.console.ConsoleManager;
 import com.burksnet.code.games.rain.entity.mob.Player;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.input.Keyboard;
+import com.burksnet.code.games.rain.input.Mouse;
 import com.burksnet.code.games.rain.level.Level;
 import com.burksnet.code.games.rain.level.SpawnLevel;
 import com.burksnet.code.games.rain.menu.Menu;
@@ -51,7 +54,8 @@ public class Game extends Canvas implements Runnable {
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
+	private Mouse mouse;
+	
 	public Game() {
 
 		size = new Dimension(width * defaultScale, height * defaultScale);
@@ -62,10 +66,13 @@ public class Game extends Canvas implements Runnable {
 		// ADD THE THING
 		level = new SpawnLevel("/maps/spawn_new.png");
 		player = new Player(level.spawnX, level.spawnY, key, level);
-
 		pauseMenu = new PauseMenu(35, 700, 0);
+		mouse = new Mouse();
+		
 		addKeyListener(key);
 		addFocusListener(focus);
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 
 	public synchronized void start() {
