@@ -16,6 +16,8 @@ import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.input.Keyboard;
 import com.burksnet.code.games.rain.level.Level;
 import com.burksnet.code.games.rain.level.SpawnLevel;
+import com.burksnet.code.games.rain.menu.Menu;
+import com.burksnet.code.games.rain.menu.PauseMenu;
 
 public class Game extends Canvas implements Runnable {
 
@@ -23,6 +25,8 @@ public class Game extends Canvas implements Runnable {
 	private static final double VERSION = 0.0;
 	private static String title = "Rain";
 
+	private boolean paused = false;
+	
 	public static int width = 500;
 	public static int height = width / 16 * 9;
 	public static final int defaultScale = 2;
@@ -40,6 +44,7 @@ public class Game extends Canvas implements Runnable {
 	public Level level;
 	private BurkFocusListener focus;
 	public Player player;
+	public Menu pauseMenu;
 	private boolean running = false;
 
 	private Screen screen;
@@ -58,6 +63,7 @@ public class Game extends Canvas implements Runnable {
 		level = new SpawnLevel("/maps/spawn_new.png");
 		player = new Player(level.spawnX, level.spawnY, key, level);
 
+		pauseMenu = new PauseMenu(35, 700, 0);
 		addKeyListener(key);
 		addFocusListener(focus);
 	}
@@ -145,24 +151,53 @@ public class Game extends Canvas implements Runnable {
 		int xScroll = player.x - screen.width / 2, yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
-
+		
+		Graphics g = bs.getDrawGraphics();
+		
+		//if(paused)
+			//pauseMenu.blur(screen, g);
+		
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
-
-		Graphics g = bs.getDrawGraphics();
-
+		
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
+		if(paused){
+			pauseMenu.render(screen, g);
+		}
+		
 		g.dispose();
 		bs.show();
 	}
 
 	private void update() {
+		updateIgnorePause();
+		if(!paused){
+			updateWithPause();
+		}
+	}
+
+	public static void pause(){
+		
+	}
+	
+	private void updateIgnorePause() {
 		key.update();
+		if(key.paused){
+			paused = true;
+		}else{
+			paused = false;
+		}
+		if(paused){
+			pauseMenu.update();
+		}
+	}
+
+	private void updateWithPause() {
 		player.update();
 	}
 
@@ -207,11 +242,15 @@ public class Game extends Canvas implements Runnable {
 		game.setWindowSettings();
 
 		game.start();
-
+		
 	}
 
 	public Keyboard getKeyboard() {
 		return key;
 	}
 
+	public void pause(boolean b){
+		paused = b;
+	}
+	
 }
