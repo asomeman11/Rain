@@ -8,8 +8,8 @@ import com.burksnet.code.games.rain.level.tile.Tile;
 public abstract class Mob extends Entity {
 
 	// Remember this is the difference from the middle to the outer bound
-	protected int topOfPlayerCollisionBound = 15;
-	protected int bottomOfPlayerCollisionBound = 15;
+	protected int topOfMobCollisionBound = 15;
+	protected int bottomOfMobCollisionBound = 15;
 
 	public Mob(Level level) {
 		super(level);
@@ -39,7 +39,7 @@ public abstract class Mob extends Entity {
 		if (ya < 0)
 			dir = Direction.NORTH;
 		int xb = xa * speed, yb = ya * speed; 
-		if (!collision((x + xb), (y + yb)) && !collision((x + xb), (y + yb + bottomOfPlayerCollisionBound)) && !collision((x + xb), (y + yb - topOfPlayerCollisionBound))) {
+		if (!collision((x + xb), (y + yb)) && !collision((x + xb), (y + yb + bottomOfMobCollisionBound)) && !collision((x + xb), (y + yb - topOfMobCollisionBound))) {
 			x += xb;
 			y += yb;
 		}

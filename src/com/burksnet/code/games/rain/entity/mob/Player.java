@@ -24,8 +24,8 @@ public class Player extends Mob {
 		super(level);
 		mouse = input.getMouse();
 		
-		super.bottomOfPlayerCollisionBound = 15;
-		super.topOfPlayerCollisionBound = 9;
+		super.bottomOfMobCollisionBound = 15;
+		super.topOfMobCollisionBound = 0;
 		
 		this.x = x;
 		this.y = y;
