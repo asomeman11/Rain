@@ -3,6 +3,7 @@ package com.burksnet.code.games.rain.entity.mob;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.input.Keyboard;
+import com.burksnet.code.games.rain.input.Mouse;
 import com.burksnet.code.games.rain.level.Level;
 
 public class Player extends Mob {
@@ -12,13 +13,15 @@ public class Player extends Mob {
 	private Keyboard input;
 	public Sprite sprite = Sprite.playerSouth;
 	private int anim = 0;
-
+	private Mouse mouse;
+	
 	public Player(Keyboard input, Level level) {
 		this(0, 0, input, level);
 	}
 
 	public Player(int x, int y, Keyboard input, Level level) {
 		super(level);
+		mouse = input.getMouse();
 		
 		super.bottomOfPlayerCollisionBound = 15;
 		super.topOfPlayerCollisionBound = 9;
@@ -32,6 +35,7 @@ public class Player extends Mob {
 		if (anim >= 10000)
 			anim = 0;
 		anim++;
+		mouseUpdate();
 		if (keyboardUpdate()) {
 			walking = true;
 			directionUpdate();
@@ -39,6 +43,18 @@ public class Player extends Mob {
 			walking = false;
 		}
 
+	}
+
+	private void mouseUpdate() {
+		if(mouse.left){
+			System.out.println("Left");
+		}
+		if(mouse.middle){
+			System.out.println("Middle");
+		}
+		if(mouse.right){
+			System.out.println("Right");
+		}
 	}
 
 	public Player respawn() {
@@ -149,4 +165,8 @@ public class Player extends Mob {
 
 		screen.renderPlayer(xx, yy, sprite);
 	}
+
+	public void shoot() {
+	}
+	
 }

@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable {
 	private static String title = "Rain";
 
 	private boolean paused = false;
-	
+
 	public static int width = 500;
 	public static int height = width / 16 * 9;
 	public static final int defaultScale = 2;
@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable {
 	private Dimension size;
 
 	private final double UPDATES_PER_SECOND = 60.0;
-	private double maxFramesPerSecond = 0;
+	private double maxFramesPerSecond = 0.0;
 
 	private static ConsoleManager cm;
 
@@ -55,24 +55,30 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private Mouse mouse;
-	
+
 	public Game() {
 
 		size = new Dimension(width * defaultScale, height * defaultScale);
 		screen = new Screen(width, height);
 		frame = new JFrame();
-		key = new Keyboard();
+		mouse = new Mouse();
+		key = new Keyboard(mouse);
 		focus = new BurkFocusListener(this);
 		// ADD THE THING
 		level = new SpawnLevel("/maps/spawn_new.png");
 		player = new Player(level.spawnX, level.spawnY, key, level);
 		pauseMenu = new PauseMenu(35, 700, 0);
-		mouse = new Mouse();
+
+		addListeners();
 		
+	}
+
+	private void addListeners() {
 		addKeyListener(key);
 		addFocusListener(focus);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+		
 	}
 
 	public synchronized void start() {
@@ -148,7 +154,6 @@ public class Game extends Canvas implements Runnable {
 		// TODO Auto-generated method stub
 
 		BufferStrategy bs = getBufferStrategy();
-
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
@@ -182,10 +187,15 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void update() {
+
+		key.update();
+		mouse.update();
+
 		updateIgnorePause();
-		if(!paused){
+		if (!paused) {
 			updateWithPause();
 		}
+		mouse.releaseAll();
 	}
 
 	public static void pause(){

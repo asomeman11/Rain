@@ -5,6 +5,16 @@ import java.awt.event.KeyListener;
 
 public class Keyboard implements KeyListener {
 
+	private Mouse mouse;
+	
+	public Keyboard(Mouse m){
+		mouse = m;
+	}
+	
+	public Mouse getMouse() {
+		return mouse;
+	}
+
 	private boolean[] keys = new boolean[128];
 	public boolean up, down, left, right, paused;
 
