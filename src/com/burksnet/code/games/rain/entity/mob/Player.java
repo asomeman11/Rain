@@ -1,5 +1,6 @@
 package com.burksnet.code.games.rain.entity.mob;
 
+import com.burksnet.code.games.rain.entity.Location;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.input.Keyboard;
@@ -31,6 +32,10 @@ public class Player extends Mob {
 		this.input = input;
 	}
 
+	public Player(Location location, Keyboard input, Level level){
+		this(location.getX(), location.getY(), input, level);
+	}
+	
 	public void update() {
 		if (anim >= 10000)
 			anim = 0;
@@ -58,7 +63,7 @@ public class Player extends Mob {
 	}
 
 	public Player respawn() {
-		return new Player(level.spawnX, level.spawnY, input, level);
+		return new Player(level.getSpawnLocation(), input, level);
 	}
 
 	private void directionUpdate() {
@@ -167,6 +172,15 @@ public class Player extends Mob {
 	}
 
 	public void shoot() {
+	}
+	
+	public void setLocation(Location location){
+		setLocation(location.getX(), location.getY());
+	}
+
+	public void setLocation(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.burksnet.code.games.rain.level;
 
+import com.burksnet.code.games.rain.entity.Location;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.level.tile.Tile;
 
@@ -8,10 +9,16 @@ public class Level {
 	protected int width, height;
 	protected int[] tilesInt;
 	protected String path;
-
-	public int spawnX, spawnY;
+	
+	private Location spawnLocation;
 	
 	protected int[] tiles;
+	
+	public Location getSpawnLocation() {
+		return spawnLocation;
+	}
+	
+	
 
 	// Rand Gen
 	public Level(int width, int height) {
@@ -38,8 +45,9 @@ public class Level {
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				if (tiles[x + y * width] == Tile.col_spawn) {
-					spawnX = x*16;
-					spawnY = y*16;
+					spawnLocation = new Location(x*16, y*16);
+					//spawnX = x*16;
+					//spawnY = y*16;
 					//In future I might make it so multiple SpawnTiles can be found. At the moment that isn't the case.
 					return;
 				}

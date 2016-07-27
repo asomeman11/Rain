@@ -66,7 +66,7 @@ public class Game extends Canvas implements Runnable {
 		focus = new BurkFocusListener(this);
 		// ADD THE THING
 		level = new SpawnLevel("/maps/spawn_new.png");
-		player = new Player(level.spawnX, level.spawnY, key, level);
+		player = new Player(level.getSpawnLocation(), key, level);
 		pauseMenu = new PauseMenu(35, 700, 0);
 
 		addListeners();
@@ -158,30 +158,34 @@ public class Game extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
-
-		screen.clear();
-		int xScroll = player.x - screen.width / 2, yScroll = player.y - screen.height / 2;
-		level.render(xScroll, yScroll, screen);
-		player.render(screen);
-		
 		Graphics g = bs.getDrawGraphics();
-		
-		//if(paused)
-			//pauseMenu.blur(screen, g);
-		
-		for (int i = 0; i < pixels.length; i++) {
-			pixels[i] = screen.pixels[i];
+
+		if(!paused){
+			screen.clear();
+			int xScroll = player.x - screen.width / 2, yScroll = player.y - screen.height / 2;
+			level.render(xScroll, yScroll, screen);
+			player.render(screen);
+
+
+
+			// if(paused)
+			// pauseMenu.blur(screen, g);
+
+			for (int i = 0; i < pixels.length; i++) {
+				pixels[i] = screen.pixels[i];
+			}
+
+			g.setColor(Color.BLUE);
+			g.fillRect(0, 0, getWidth(), getHeight());
+
+
+
+
 		}
-		
-		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, getWidth(), getHeight());
-
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-
-		if(paused){
+		if (paused) {
 			pauseMenu.render(screen, g);
 		}
-		
 		g.dispose();
 		bs.show();
 	}
@@ -198,18 +202,14 @@ public class Game extends Canvas implements Runnable {
 		mouse.releaseAll();
 	}
 
-	public static void pause(){
-		
+	public static void pause() {
+
 	}
-	
+
 	private void updateIgnorePause() {
-		key.update();
-		if(key.paused){
-			paused = true;
-		}else{
-			paused = false;
-		}
-		if(paused){
+
+		paused = key.paused;
+		if (paused) {
 			pauseMenu.update();
 		}
 	}
@@ -249,8 +249,6 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 
-
-
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);
 		cm.init(game);
@@ -259,15 +257,15 @@ public class Game extends Canvas implements Runnable {
 		game.setWindowSettings();
 
 		game.start();
-		
+
 	}
 
 	public Keyboard getKeyboard() {
 		return key;
 	}
 
-	public void pause(boolean b){
+	public void pause(boolean b) {
 		paused = b;
 	}
-	
+
 }
