@@ -25,7 +25,7 @@ public class Sound implements Runnable {
 	}
 
 	public Sound(String fileName) {
-		thread = new Thread(this, "Sound");
+		thread = new Thread(this, "Sound " + fileName);
 		fileLocation = fileName;
 		thread.start();
 	}
