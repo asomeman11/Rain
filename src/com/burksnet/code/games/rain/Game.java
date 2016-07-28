@@ -21,6 +21,7 @@ import com.burksnet.code.games.rain.level.Level;
 import com.burksnet.code.games.rain.level.SpawnLevel;
 import com.burksnet.code.games.rain.menu.Menu;
 import com.burksnet.code.games.rain.menu.PauseMenu;
+import com.burksnet.code.games.rain.sound.Sound;
 
 public class Game extends Canvas implements Runnable {
 
@@ -48,6 +49,7 @@ public class Game extends Canvas implements Runnable {
 	private BurkFocusListener focus;
 	public Player player;
 	public Menu pauseMenu;
+	public Sound sound;
 	private boolean running = false;
 
 	private Screen screen;
@@ -73,6 +75,10 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 
+	private void playSound(String name){
+		sound = new Sound(name);
+	}
+	
 	private void addListeners() {
 		addKeyListener(key);
 		addFocusListener(focus);
@@ -88,6 +94,7 @@ public class Game extends Canvas implements Runnable {
 		gameThread = new Thread(this, "Game");
 		consoleThread.start();
 		gameThread.start();
+		playSound("main.wav");
 	}
 
 	public synchronized void stop() {
