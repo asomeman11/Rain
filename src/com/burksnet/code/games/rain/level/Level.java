@@ -112,6 +112,10 @@ public class Level {
 
 			return Tile.spawn;
 		}
+		if (tiles[x + y * width] == Tile.col_wood) {
+
+			return Tile.wood;
+		}
 
 		return Tile.voidTile;
 	}
