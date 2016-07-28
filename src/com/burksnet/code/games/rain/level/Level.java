@@ -10,7 +10,7 @@ public class Level {
 	protected int[] tilesInt;
 	protected String path;
 	
-	private Location spawnLocation;
+	private Location spawnLocation = new Location(0, 0);
 	
 	protected int[] tiles;
 	
@@ -45,7 +45,7 @@ public class Level {
 		for(int y = 0; y < height; y++){
 			for(int x = 0; x < width; x++){
 				if (tiles[x + y * width] == Tile.col_spawn) {
-					spawnLocation = new Location(x*16, y*16);
+					spawnLocation = new Location((x*16) + 8, (y*16));
 					//spawnX = x*16;
 					//spawnY = y*16;
 					//In future I might make it so multiple SpawnTiles can be found. At the moment that isn't the case.

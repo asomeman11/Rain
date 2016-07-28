@@ -3,6 +3,7 @@ package com.burksnet.code.games.rain.console;
 import java.io.PrintStream;
 
 import com.burksnet.code.games.rain.Game;
+import com.burksnet.code.games.rain.sound.Sound;
 
 public class ConsoleManager implements Runnable {
 
@@ -44,6 +45,10 @@ public class ConsoleManager implements Runnable {
 		if (cmd.equalsIgnoreCase("QUIT")) {
 			System.out.println("Application Terminated.");
 			game.stop();
+		}
+		if (cmd.equalsIgnoreCase("ENDSOUND")) {
+			System.out.println("Sound Stoped");
+			Sound.stop();
 		}
 		if (cmd.equalsIgnoreCase("RESPAWN")) {
 			System.out.println("User Respawned.");
