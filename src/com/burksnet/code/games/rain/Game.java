@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 
@@ -40,7 +41,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static ConsoleManager cm;
 	public static Game game;
-	
+
 	private Thread gameThread, consoleThread;
 	private JFrame frame;
 	private Keyboard key;
@@ -60,7 +61,7 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 
 		game = this;
-		
+
 		size = new Dimension(width * defaultScale, height * defaultScale);
 		screen = new Screen(width, height);
 		frame = new JFrame();
@@ -73,19 +74,19 @@ public class Game extends Canvas implements Runnable {
 		pauseMenu = new PauseMenu(35, 700, 0);
 
 		addListeners();
-		
+
 	}
 
 	private void playSound(String name){
 		sound = new Sound(name);
 	}
-	
+
 	private void addListeners() {
 		addKeyListener(key);
 		addFocusListener(focus);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
-		
+
 	}
 
 	public synchronized void start() {
@@ -100,17 +101,13 @@ public class Game extends Canvas implements Runnable {
 
 	public synchronized void stop() {
 		running = false;
-
+		Sound.stop();
 		cm.stop();
-
-		try {
-			frame.dispose();
-			gameThread.join();
-			consoleThread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		System.exit(0);	
 	}
+
+
+
 
 	@Override
 	public void run() {
@@ -183,8 +180,8 @@ public class Game extends Canvas implements Runnable {
 				pixels[i] = screen.pixels[i];
 			}
 
-			g.setColor(Color.BLUE);
-			g.fillRect(0, 0, getWidth(), getHeight());
+			//g.setColor(Color.BLUE);
+			//g.fillRect(0, 0, getWidth(), getHeight());
 
 
 
@@ -256,7 +253,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		
+
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);
 		cm.init(game);
@@ -273,7 +270,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void pause(boolean b) {
-		paused = b;
+		key.paused = b;
 	}
 
 }

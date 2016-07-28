@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound implements Runnable {
 	String classPath = System.getProperty("user.dir") + "/res/audio/";
+	public static Thread thread;
 	private static boolean running = true;
 
 	String fileLocation;
@@ -22,9 +23,9 @@ public class Sound implements Runnable {
 	}
 
 	public Sound(String fileName) {
-		Thread t = new Thread(this);
+		thread = new Thread(this, "Sound");
 		fileLocation = fileName;
-		t.start();
+		thread.start();
 	}
 
 	public void run() {
