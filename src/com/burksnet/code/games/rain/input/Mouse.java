@@ -9,7 +9,9 @@ import com.burksnet.code.games.rain.Game;
 
 public class Mouse implements MouseMotionListener, MouseListener{
 
-	int x, y;
+	static int x;
+
+	static int y;
 	
 	boolean[] keys = new boolean[MouseInfo.getNumberOfButtons()];
 	
@@ -25,6 +27,14 @@ public class Mouse implements MouseMotionListener, MouseListener{
 		right = keys[3];
 	}
 	
+	public static int getX() {
+		return x;
+	}
+
+	public static int getY() {
+		return y;
+	}
+
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		x = arg0.getX();

@@ -4,8 +4,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -41,7 +39,8 @@ public class Game extends Canvas implements Runnable {
 	private double maxFramesPerSecond = 0.0;
 
 	private static ConsoleManager cm;
-
+	public static Game game;
+	
 	private Thread gameThread, consoleThread;
 	private JFrame frame;
 	private Keyboard key;
@@ -60,6 +59,8 @@ public class Game extends Canvas implements Runnable {
 
 	public Game() {
 
+		game = this;
+		
 		size = new Dimension(width * defaultScale, height * defaultScale);
 		screen = new Screen(width, height);
 		frame = new JFrame();
@@ -255,7 +256,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-
+		
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);
 		cm.init(game);

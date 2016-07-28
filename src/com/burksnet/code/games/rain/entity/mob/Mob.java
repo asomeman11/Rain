@@ -1,5 +1,6 @@
 package com.burksnet.code.games.rain.entity.mob;
 
+import com.burksnet.code.games.rain.Game;
 import com.burksnet.code.games.rain.entity.Entity;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.level.Level;
@@ -22,6 +23,15 @@ public abstract class Mob extends Entity {
 	
 	public int speed = 1;
 
+	public void shoot(int x, int y, double dir) {
+
+		System.out.println("Angle: " + Math.toDegrees(dir));
+		
+		
+		
+	}
+	
+	
 	public void move(int xa, int ya) {
 
 		if(xa != 0 && ya != 0){

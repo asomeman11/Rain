@@ -1,11 +1,13 @@
 package com.burksnet.code.games.rain.entity.mob;
 
+import com.burksnet.code.games.rain.Game;
 import com.burksnet.code.games.rain.entity.Location;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.input.Keyboard;
 import com.burksnet.code.games.rain.input.Mouse;
 import com.burksnet.code.games.rain.level.Level;
+import com.burksnet.code.games.rain.level.tile.Tile;
 
 public class Player extends Mob {
 
@@ -15,7 +17,7 @@ public class Player extends Mob {
 	public Sprite sprite = Sprite.playerSouth;
 	private int anim = 0;
 	private Mouse mouse;
-	
+
 	public Player(Keyboard input, Level level) {
 		this(0, 0, input, level);
 	}
@@ -23,19 +25,19 @@ public class Player extends Mob {
 	public Player(int x, int y, Keyboard input, Level level) {
 		super(level);
 		mouse = input.getMouse();
-		
+
 		super.bottomOfMobCollisionBound = 15;
 		super.topOfMobCollisionBound = 0;
-		
+
 		this.x = x;
 		this.y = y;
 		this.input = input;
 	}
 
-	public Player(Location location, Keyboard input, Level level){
+	public Player(Location location, Keyboard input, Level level) {
 		this(location.getX(), location.getY(), input, level);
 	}
-	
+
 	public void update() {
 		if (anim >= 10000)
 			anim = 0;
@@ -51,13 +53,22 @@ public class Player extends Mob {
 	}
 
 	private void mouseUpdate() {
-		if(mouse.left){
+		if (mouse.left) {
 			System.out.println("Left");
+			
+			double dx = Mouse.getX() - Game.width * Game.defaultScale/2;
+			double dy = Mouse.getY() - Game.height * Game.defaultScale/2;
+			
+			
+			
+			double dir = Math.atan2(dy, dx);
+			
+			shoot(x, y, dir);
 		}
-		if(mouse.middle){
+		if (mouse.middle) {
 			System.out.println("Middle");
 		}
-		if(mouse.right){
+		if (mouse.right) {
 			System.out.println("Right");
 		}
 	}
@@ -171,10 +182,7 @@ public class Player extends Mob {
 		screen.renderPlayer(xx, yy, sprite);
 	}
 
-	public void shoot() {
-	}
-	
-	public void setLocation(Location location){
+	public void setLocation(Location location) {
 		setLocation(location.getX(), location.getY());
 	}
 
@@ -182,5 +190,5 @@ public class Player extends Mob {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 }
