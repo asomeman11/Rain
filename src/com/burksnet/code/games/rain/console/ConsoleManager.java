@@ -34,9 +34,7 @@ public class ConsoleManager implements Runnable {
 		running = false;
 	}
 
-	public void init(Game game) {
-		this.game = game;
-	}
+	
 
 	private void processCommand(String cmd) {
 

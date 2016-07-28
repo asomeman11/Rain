@@ -264,7 +264,6 @@ public class Game extends Canvas implements Runnable {
 
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);
-		cm.init(game);
 
 		// Sets Necessary Window Settings such as title
 		game.setWindowSettings();
