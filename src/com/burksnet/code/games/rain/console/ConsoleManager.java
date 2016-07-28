@@ -43,7 +43,6 @@ public class ConsoleManager implements Runnable {
 		String[] array = cmd.split(" ");
 
 		if (cmd.equalsIgnoreCase("QUIT")) {
-			System.out.println("Application Terminated.");
 			game.stop();
 		}
 		if (cmd.equalsIgnoreCase("ENDSOUND")) {

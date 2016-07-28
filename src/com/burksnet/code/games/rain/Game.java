@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -82,6 +84,15 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void addListeners() {
+
+		frame.addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent e)
+			{
+				stop();
+			}
+		});
+
 		addKeyListener(key);
 		addFocusListener(focus);
 		addMouseListener(mouse);
@@ -100,6 +111,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public synchronized void stop() {
+		System.out.println("Application Terminated.");
 		running = false;
 		Sound.stop();
 		cm.stop();
@@ -207,10 +219,6 @@ public class Game extends Canvas implements Runnable {
 		mouse.releaseAll();
 	}
 
-	public static void pause() {
-
-	}
-
 	private void updateIgnorePause() {
 
 		paused = key.paused;
@@ -247,7 +255,7 @@ public class Game extends Canvas implements Runnable {
 		frame.setTitle(title);
 		frame.add(this);
 		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
