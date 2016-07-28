@@ -11,10 +11,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import com.burksnet.code.games.rain.MyProperties;
+
 public class Sound implements Runnable {
 	String classPath = System.getProperty("user.dir") + "/res/audio/";
 	public static Thread thread;
-	private static boolean running = true;
+	private static boolean running = MyProperties.sound;
 
 	String fileLocation;
 

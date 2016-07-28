@@ -1,7 +1,6 @@
 package com.burksnet.code.games.rain;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
@@ -9,7 +8,9 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 
@@ -261,7 +262,8 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-
+		MyProperties p = new MyProperties();
+		
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);
 
