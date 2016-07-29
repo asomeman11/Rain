@@ -58,6 +58,7 @@ public class Player extends Mob {
 			
 			double dx = Mouse.getX() - Game.width * Game.defaultScale/2;
 			double dy = Mouse.getY() - Game.height * Game.defaultScale/2;
+			Sound.playSoundOnce("click.wav");
 			
 			
 			
