@@ -46,3 +46,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /bin/
+
+*.class
+*.class
+bin/com/burksnet/code/games/rain/level/tile/Tile.class
+*.class
+*.class
