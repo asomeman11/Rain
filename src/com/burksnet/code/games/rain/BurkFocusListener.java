@@ -17,6 +17,7 @@ public class BurkFocusListener implements FocusListener {
 	public void focusGained(FocusEvent e) {
 		game.pause(false);
 		game.getKeyboard().releaseAll();
+		game.getMouse().releaseAll();
 	}
 
 	@Override
