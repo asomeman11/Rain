@@ -39,8 +39,8 @@ public class Game extends Canvas implements Runnable {
 	private static double currentScale = defaultScale;
 	private Dimension size;
 
-	private final double UPDATES_PER_SECOND = 60.0;
-	private double maxFramesPerSecond = 0.0;
+	private static final int UPDATES_PER_SECOND = 60;
+	private static int maxFramesPerSecond = 0;
 
 	private static ConsoleManager cm;
 	public static Game game;
@@ -260,6 +260,8 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		MyProperties p = new MyProperties();
+		
+		Game.maxFramesPerSecond = p.maxFrames;
 		
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);

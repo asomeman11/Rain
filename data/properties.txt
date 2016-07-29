@@ -1,1 +1,2 @@
 sound:true
+max_frames:120

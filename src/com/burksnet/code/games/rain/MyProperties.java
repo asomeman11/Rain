@@ -9,6 +9,7 @@ import java.util.Properties;
 
 public class MyProperties {
 	public static boolean sound;
+	public static int maxFrames;
 
 	public MyProperties(){
 		try {
@@ -36,6 +37,9 @@ public class MyProperties {
 		
 		if(key.equalsIgnoreCase("SOUND")){
 			MyProperties.sound = Boolean.parseBoolean(value);
+		}
+		if(key.equalsIgnoreCase("MAX_FRAMES")){
+			MyProperties.maxFrames = Integer.parseInt(value);
 		}
 		
 	}
