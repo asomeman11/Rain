@@ -8,6 +8,7 @@ import com.burksnet.code.games.rain.input.Keyboard;
 import com.burksnet.code.games.rain.input.Mouse;
 import com.burksnet.code.games.rain.level.Level;
 import com.burksnet.code.games.rain.level.tile.Tile;
+import com.burksnet.code.games.rain.sound.Sound;
 
 public class Player extends Mob {
 

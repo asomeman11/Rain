@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import com.burksnet.code.games.rain.Game;
 
 public class Mouse implements MouseMotionListener, MouseListener{
 
@@ -15,11 +14,11 @@ public class Mouse implements MouseMotionListener, MouseListener{
 	
 	boolean[] keys = new boolean[MouseInfo.getNumberOfButtons()];
 	
-	public boolean left;
+	public static boolean left;
 
-	public boolean middle;
+	public static boolean middle;
 
-	public boolean right;
+	public static boolean right;
 	
 	public void update(){
 		left = keys[1];

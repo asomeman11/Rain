@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import com.burksnet.code.games.rain.MyProperties;
 import com.burksnet.code.games.rain.graphics.Screen;
+import com.burksnet.code.games.rain.sound.Sound;
 
 public class Menu {
 
@@ -43,6 +45,9 @@ public class Menu {
 		g.setFont(f);
 		g.setColor(Color.WHITE);
 		g.drawString("Paused.", 400, 200);
+		if(Sound.running)
+			g.drawString("Sound On", 400, 300);
+		else g.drawString("Sound Off", 400, 300);
 	}
 
 	public void blur(Screen screen, Graphics g) {

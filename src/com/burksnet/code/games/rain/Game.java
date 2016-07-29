@@ -80,10 +80,6 @@ public class Game extends Canvas implements Runnable {
 
 	}
 
-	private void playSound(String name){
-		sound = new Sound(name);
-	}
-
 	private void addListeners() {
 
 		frame.addWindowListener(new WindowAdapter()
@@ -108,7 +104,7 @@ public class Game extends Canvas implements Runnable {
 		gameThread = new Thread(this, "Game");
 		consoleThread.start();
 		gameThread.start();
-		playSound("main.wav");
+		Sound.playSoundForever("main.wav");
 	}
 
 	public synchronized void stop() {
@@ -230,6 +226,7 @@ public class Game extends Canvas implements Runnable {
 
 	private void updateWithPause() {
 		player.update();
+		level.update();
 	}
 
 	public synchronized void resizeWindow(final double scaleChangeFactor) {
@@ -278,6 +275,10 @@ public class Game extends Canvas implements Runnable {
 		return key;
 	}
 
+	public Mouse getMouse(){
+		return mouse;
+	}
+	
 	public void pause(boolean b) {
 		key.paused = b;
 	}
