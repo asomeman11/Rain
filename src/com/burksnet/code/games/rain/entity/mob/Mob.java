@@ -58,7 +58,7 @@ public abstract class Mob extends Entity {
 		if (ya < 0)
 			dir = Direction.NORTH;
 		int xb = xa * speed, yb = ya * speed; 
-		if (!collision((x + xb), (y + yb)) && !collision((x + xb), (y + yb + bottomOfMobCollisionBound)) && !collision((x + xb), (y + yb - topOfMobCollisionBound))) {
+		if (!collision(((int)(x + xb)), ((int)(y + yb))) && !collision((int)(x + xb), (int)(y + yb + bottomOfMobCollisionBound)) && !collision((int)(x + xb), (int)(y + yb - topOfMobCollisionBound))) {
 			x += xb;
 			y += yb;
 		}

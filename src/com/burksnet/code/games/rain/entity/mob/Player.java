@@ -56,8 +56,6 @@ public class Player extends Mob {
 		if (mouse.left) {
 			System.out.println("Left");
 			
-			double dx = Mouse.getX() - Game.width * Game.defaultScale/2;
-			double dy = Mouse.getY() - Game.height * Game.defaultScale/2;
 			Sound.playSoundOnce("click.wav");
 			
 			double dx = (Mouse.getX() - Game.width * Game.defaultScale/2) - 12;
@@ -181,10 +179,10 @@ public class Player extends Mob {
 
 	public void render(Screen screen) {
 
-		int xx = x - sprite.SIZE / 2;
-		int yy = y - sprite.SIZE / 2;
+		double xx = x - sprite.SIZE / 2;
+		double yy = y - sprite.SIZE / 2;
 
-		screen.renderPlayer(xx, yy, sprite);
+		screen.renderPlayer((int)xx, (int)yy, sprite);
 	}
 
 	public void setLocation(Location location) {
