@@ -1,5 +1,9 @@
 package com.burksnet.code.games.rain.level;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.burksnet.code.games.rain.entity.Entity;
 import com.burksnet.code.games.rain.entity.Location;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.level.tile.Tile;
@@ -14,6 +18,8 @@ public class Level {
 
 	protected int[] tiles;
 
+	private List<Entity> entities = new ArrayList<Entity>();
+	
 	public Location getSpawnLocation() {
 		return spawnLocation;
 	}
@@ -59,6 +65,11 @@ public class Level {
 	}
 
 	public void update() {
+		
+		for(int i = 0; i < entities.size(); i++){
+			entities.get(i).update();
+		}
+		
 	}
 
 	private void time() {
@@ -79,6 +90,10 @@ public class Level {
 				}
 			}
 
+			for(int i = 0; i < entities.size(); i++){
+				entities.get(i).render(screen);
+			}
+			
 	}
 
 	// Grass = 0xFF00
@@ -111,4 +126,13 @@ public class Level {
 		return Tile.voidTile;
 	}
 
+	public void add(Entity e){
+		entities.add(e);	
+	}
+
+	public void remove(Entity e) {
+		entities.remove(entities.indexOf(e));
+		
+	}
+	
 }

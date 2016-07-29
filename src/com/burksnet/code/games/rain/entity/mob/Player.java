@@ -60,11 +60,15 @@ public class Player extends Mob {
 			double dy = Mouse.getY() - Game.height * Game.defaultScale/2;
 			Sound.playSoundOnce("click.wav");
 			
+			double dx = (Mouse.getX() - Game.width * Game.defaultScale/2) - 12;
+			double dy = (Mouse.getY() - Game.height * Game.defaultScale/2) - 8;
+			
 			
 			
 			double dir = Math.atan2(dy, dx);
-			
-			shoot(x, y, dir);
+			for(int i = 0; i < 1; i ++){
+				shoot(x, y, dir);
+			}
 		}
 		if (mouse.middle) {
 			System.out.println("Middle");

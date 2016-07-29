@@ -13,6 +13,7 @@ public class Sprite {
 	public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
 	public static Sprite spawn = new Sprite(16, 4, 0, SpriteSheet.tiles16);
 	public static Sprite wood = new Sprite(16, 5, 0, SpriteSheet.tiles16);
+	public static Sprite arrow = new Sprite(16, 6, 0, SpriteSheet.tiles16);
 
 	public static Sprite playerSouth = new Sprite(32, 0, 0, SpriteSheet.sprites32);
 	public static Sprite playerNorth = new Sprite(32, 1, 0, SpriteSheet.sprites32);

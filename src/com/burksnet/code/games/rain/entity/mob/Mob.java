@@ -1,7 +1,12 @@
 package com.burksnet.code.games.rain.entity.mob;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.burksnet.code.games.rain.Game;
+import com.burksnet.code.games.rain.entity.ArrowProjectile;
 import com.burksnet.code.games.rain.entity.Entity;
+import com.burksnet.code.games.rain.entity.Projectile;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.level.Level;
 import com.burksnet.code.games.rain.level.tile.Tile;
@@ -23,11 +28,15 @@ public abstract class Mob extends Entity {
 	
 	public int speed = 1;
 
-	public void shoot(int x, int y, double dir) {
+	protected List<Projectile> projectiles = new ArrayList<Projectile>();
+	
+	public void shoot(double x, double y, double dir) {
 
 		System.out.println("Angle: " + Math.toDegrees(dir));
 		
-		
+		Projectile p = new ArrowProjectile(x, y, dir, level);
+		projectiles.add(p);
+		level.add(p);
 		
 	}
 	
