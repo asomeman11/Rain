@@ -51,6 +51,7 @@ public class Menu {
 		if(MyProperties.sound)
 			g.drawString("Sound On", 400, 360);
 		else g.drawString("Sound Off", 400, 360);
+		g.drawString("Quit", 400, 430);
 	}
 
 	public void blur(Screen screen, Graphics g) {

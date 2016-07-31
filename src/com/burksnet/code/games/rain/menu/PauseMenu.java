@@ -2,6 +2,7 @@ package com.burksnet.code.games.rain.menu;
 
 import java.awt.Graphics;
 
+import com.burksnet.code.games.rain.Game;
 import com.burksnet.code.games.rain.MyProperties;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.input.Mouse;
@@ -31,12 +32,18 @@ public class PauseMenu extends Menu{
 				}
 			}
 			
+			if(Mouse.getY() > 390 && Mouse.getY() <= 440){
+				if(Mouse.getX() > 400 && Mouse.getX() <= 700){
+					Game.game.stop();
+				}
+			}
+			
 		}
 	}
 
 	public void render(Screen screen, Graphics g) {
 		
-		System.out.println("Caleld");
+		//System.out.println("Caleld");
 		
 		//screen.renderSprite(0, 0, Sprite.wood, false);
 		super.render(screen, g);
