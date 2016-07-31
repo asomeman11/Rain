@@ -3,6 +3,8 @@ package com.burksnet.code.games.rain.console;
 import java.io.PrintStream;
 
 import com.burksnet.code.games.rain.Game;
+import com.burksnet.code.games.rain.MyProperties;
+import com.burksnet.code.games.rain.entity.mob.HittableEnemy;
 import com.burksnet.code.games.rain.sound.Sound;
 
 public class ConsoleManager implements Runnable {
@@ -61,9 +63,15 @@ public class ConsoleManager implements Runnable {
 			System.out.println("Sound Stoped");
 			Sound.stop();
 		}
+		if (cmd.equalsIgnoreCase("CORDS")) {
+			System.out.println("(" + game.player.x + ", " + game.player.y + ")");
+		}
 		if (cmd.equalsIgnoreCase("RESPAWN")) {
 			System.out.println("User Respawned.");
 			game.player = game.player.respawn();
+		}
+		if (cmd.equalsIgnoreCase("REMOVE")) {
+			game.level.removeAllProjectiles();
 		}
 		if (array[0].equalsIgnoreCase("TP")) {
 			try {
@@ -84,12 +92,29 @@ public class ConsoleManager implements Runnable {
 			}
 
 		}
+		if (array[0].equalsIgnoreCase("SPAWN")) {
+			try {
+				if (array.length > 3) {
+					throw new ArrayIndexOutOfBoundsException(array.length - 1);
+				}
+				int local1 = Integer.parseInt(array[1]);
+				int local2 = Integer.parseInt(array[2]);
+				new HittableEnemy(local1, local2, game.level);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				System.err.println("\nInvalid Cordinate Variable. Cordinate was not an Integer.");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				e.printStackTrace();
+				System.err.println("\nInvalid number of paramaters. Two Paramaters Required.");
+			}
+
+		}
 		if (array[0].equalsIgnoreCase("SPEED")) {
 			try {
 				if (array.length > 2) {
 					throw new ArrayIndexOutOfBoundsException(array.length - 1);
 				}
-				int local1 = Integer.parseInt(array[1]);
+				double local1 = Double.parseDouble(array[1]);
 				System.out.println("User Speed changed.");
 				game.player.speed = local1;
 			} catch (NumberFormatException e) {

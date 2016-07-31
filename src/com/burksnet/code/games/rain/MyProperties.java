@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import com.burksnet.code.games.rain.graphics.Sprite;
+import com.burksnet.code.games.rain.level.tile.WaterTile;
 import com.burksnet.code.games.rain.sound.Sound;
 
 public class MyProperties {
@@ -18,7 +20,7 @@ public class MyProperties {
 	public static double number_of_particles_on_collision_multipler;
 	public static boolean console_input;
 	public static int particle_color_int;
-	
+	public static boolean can_walk_on_water;
 	
 	public MyProperties(){
 		try {
@@ -58,6 +60,10 @@ public class MyProperties {
 		if(key.equalsIgnoreCase("SOUND")){
 			MyProperties.sound = Boolean.parseBoolean(value);
 		}
+		if(key.equalsIgnoreCase("CAN_WALK_ON_WATER")){
+			WaterTile.solid = !Boolean.parseBoolean(value);
+			MyProperties.can_walk_on_water = Boolean.parseBoolean(value);
+		}
 		if(key.equalsIgnoreCase("MAX_FRAMES")){
 			MyProperties.maxFrames = Integer.parseInt(value);
 			if(maxFrames < 0){
@@ -77,6 +83,9 @@ public class MyProperties {
 				MyProperties.particle_color_int = Integer.parseInt(value, 16);
 			}
 			else MyProperties.particle_color_int = Integer.parseInt(value);
+			
+			Sprite.particleNormal = new Sprite(1, particle_color_int);
+			
 		}
 		if(key.equalsIgnoreCase("REMOVE_PROJECTILE_ON_COLLISION")){
 			MyProperties.remove_projectile_on_collision = Boolean.parseBoolean(value);
