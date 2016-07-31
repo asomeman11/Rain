@@ -14,7 +14,7 @@ public class Keyboard implements KeyListener {
 	public Mouse getMouse() {
 		return mouse;
 	}
-
+ 
 	private boolean[] keys = new boolean[128];
 	public boolean up, down, left, right, paused;
 

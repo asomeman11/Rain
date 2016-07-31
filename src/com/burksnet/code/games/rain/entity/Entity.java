@@ -11,7 +11,7 @@ public abstract class Entity {
 	private boolean removed = false;
 	protected Level level;
 	protected final Random random = new Random();
-
+	
 	public Entity(Level level){
 		this.level = level;
 	}

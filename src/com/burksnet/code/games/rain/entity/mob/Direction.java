@@ -13,4 +13,4 @@ public enum Direction {
 		this.name = name;
 	}
 
-}
+} 

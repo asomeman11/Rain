@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ConsoleInput {
-
+ 
 	public static final Scanner in = new Scanner(System.in);
 
 	public static String getInputString() {

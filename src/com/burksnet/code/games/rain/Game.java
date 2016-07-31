@@ -179,8 +179,7 @@ public class Game extends Canvas implements Runnable {
 			double xScroll = player.x - screen.width / 2, yScroll = player.y - screen.height / 2;
 			level.render((int)xScroll, (int)yScroll, screen);
 			player.render(screen);
-
-
+			
 
 			// if(paused)
 			// pauseMenu.blur(screen, g);
@@ -280,7 +279,7 @@ public class Game extends Canvas implements Runnable {
 	public Mouse getMouse(){
 		return mouse;
 	}
-	
+
 	public void pause(boolean b) {
 		key.paused = b;
 	}

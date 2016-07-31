@@ -56,14 +56,14 @@ public class Player extends Mob {
 	private void mouseUpdate() {
 		if (mouse.left) {
 			System.out.println("Left");
-			
+
 			Sound.playSoundOnce("click.wav");
-			
+
 			double dx = (Mouse.getX() - Game.width * Game.defaultScale/2) - 12;
 			double dy = (Mouse.getY() - Game.height * Game.defaultScale/2) - 8;
-			
-			
-			
+
+
+
 			double dir = Math.atan2(dy, dx);
 			for(int i = 0; i < 1; i ++){
 				shoot(x, y, dir);
@@ -76,6 +76,8 @@ public class Player extends Mob {
 			System.out.println("Right");
 		}
 	}
+
+	
 
 	public Player respawn() {
 		return new Player(level.getSpawnLocation(), input, level);

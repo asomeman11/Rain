@@ -22,5 +22,5 @@ public class Location {
 			x,y
 		};
 	}
-	
+	 
 }

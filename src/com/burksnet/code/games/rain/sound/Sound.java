@@ -8,7 +8,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
 import com.burksnet.code.games.rain.MyProperties;
-
+	
 public class Sound {
 	static final String classPath = System.getProperty("user.dir") + "/res/audio/";
 	public static boolean running = MyProperties.sound;
