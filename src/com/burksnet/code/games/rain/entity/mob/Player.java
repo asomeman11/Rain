@@ -1,13 +1,15 @@
 package com.burksnet.code.games.rain.entity.mob;
 
 import com.burksnet.code.games.rain.Game;
+import com.burksnet.code.games.rain.entity.ArrowProjectile;
 import com.burksnet.code.games.rain.entity.Location;
+import com.burksnet.code.games.rain.entity.Projectile;
+import com.burksnet.code.games.rain.entity.StrongProjectile;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.input.Keyboard;
 import com.burksnet.code.games.rain.input.Mouse;
 import com.burksnet.code.games.rain.level.Level;
-import com.burksnet.code.games.rain.level.tile.Tile;
 import com.burksnet.code.games.rain.sound.Sound;
 
 public class Player extends Mob {
@@ -18,6 +20,9 @@ public class Player extends Mob {
 	public Sprite sprite = Sprite.playerSouth;
 	private int anim = 0;
 	private Mouse mouse;
+
+	Projectile p;
+	private int fireRate = 0;
 
 	public Player(Keyboard input, Level level) {
 		this(0, 0, input, level);
@@ -40,6 +45,9 @@ public class Player extends Mob {
 	}
 
 	public void update() {
+
+		if(fireRate > 0) fireRate--;
+
 		if (anim >= 10000)
 			anim = 0;
 		anim++;
@@ -51,28 +59,53 @@ public class Player extends Mob {
 			walking = false;
 		}
 
+		clear();
+
+	}
+
+	private void clear() {
+		for(int i = 0; i < level.getProjectiles().size(); i ++){
+			Projectile p = level.getProjectiles().get(i);
+			if(p.isRemoved()){
+				level.getProjectiles().remove(i);
+			}
+		}
+
 	}
 
 	private void mouseUpdate() {
-		if (mouse.left) {
+		if (mouse.left && fireRate <= 0) {
 			System.out.println("Left");
 
 			Sound.playSoundOnce("click.wav");
 
-			double dx = (Mouse.getX() - Game.width * Game.defaultScale/2) - 12;
-			double dy = (Mouse.getY() - Game.height * Game.defaultScale/2) - 8;
+			double dx = (Mouse.getX() - Game.width * Game.defaultScale/2) - 0;
+			double dy = (Mouse.getY() - Game.height * Game.defaultScale/2) - 0;
 
 
 
 			double dir = Math.atan2(dy, dx);
 			for(int i = 0; i < 1; i ++){
-				shoot(x, y, dir);
+				shootNormal(x, y, dir);
+				fireRate = ArrowProjectile.RATE_OF_FIRE;
 			}
 		}
 		if (mouse.middle) {
 			System.out.println("Middle");
 		}
-		if (mouse.right) {
+		if (mouse.right && fireRate <= 0) {
+			Sound.playSoundOnce("click.wav");
+
+			double dx = (Mouse.getX() - Game.width * Game.defaultScale/2) - 0;
+			double dy = (Mouse.getY() - Game.height * Game.defaultScale/2) - 0;
+
+
+
+			double dir = Math.atan2(dy, dx);
+			for(int i = 0; i < 1; i ++){
+				shootStrong(x, y, dir);
+				fireRate = StrongProjectile.RATE_OF_FIRE;
+			}
 			System.out.println("Right");
 		}
 	}

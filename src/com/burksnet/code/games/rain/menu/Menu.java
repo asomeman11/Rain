@@ -39,15 +39,18 @@ public class Menu {
 
 	}
 
-	private Font f = new Font("Arial", 0, 64);
+	protected Font f = new Font("Arial", 0, 64);
 	
 	public void render(Screen screen, Graphics g) {
 		g.setFont(f);
 		g.setColor(Color.WHITE);
 		g.drawString("Paused.", 400, 200);
-		if(Sound.running)
-			g.drawString("Sound On", 400, 300);
-		else g.drawString("Sound Off", 400, 300);
+		if(MyProperties.music)
+			g.drawString("Music On", 400, 280);
+		else g.drawString("Music Off", 400, 280);
+		if(MyProperties.sound)
+			g.drawString("Sound On", 400, 360);
+		else g.drawString("Sound Off", 400, 360);
 	}
 
 	public void blur(Screen screen, Graphics g) {

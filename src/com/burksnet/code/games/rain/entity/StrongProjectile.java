@@ -6,20 +6,18 @@ import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.level.Level;
 
-public class ArrowProjectile extends Projectile {
+public class StrongProjectile extends Projectile {
 
-	public static final int RATE_OF_FIRE = 10;
+	public static final int RATE_OF_FIRE = 60;
 	
-	public ArrowProjectile(double x, double y, double dir, Level level) {
+	public StrongProjectile(double x, double y, double dir, Level level) {
 		super(x, y, dir, level);
-		range = 20 * 16;
-		speed = 5;
-		damage = 20;
-		rateOfFire = 15;
-		sprite = Sprite.arrow;
+		range = 25 * 16;
+		speed = 3;
+		damage = 100;
+		sprite = Sprite.bomb;
 		nx = speed * Math.cos(angle);
 		ny = speed * Math.sin(angle);
-		
 	}
 
 	public void update(){
@@ -31,11 +29,11 @@ public class ArrowProjectile extends Projectile {
 	}
 	
 	protected void move(){
-		if(level.tileCollision(x, y, nx, ny, 8)){
+		if(level.tileCollision(x, y, nx, ny, 10)){
 
 			if(!spawnedParticle){
 				
-				level.add(new ParticleSpawner(x + 8, y + 8, 5, (int) (10 * MyProperties.number_of_particles_on_collision_multipler), level));
+				level.add(new ParticleSpawner(x + 8, y + 8, 5, (int) (100 * MyProperties.number_of_particles_on_collision_multipler), level));
 				spawnedParticle = true;
 			}
 			if(MyProperties.remove_projectile_on_collision){

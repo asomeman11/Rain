@@ -8,6 +8,7 @@ public class Sprite {
 	private int x, y;
 	public int[] pixels;
 	private SpriteSheet sheet;
+	private int width, height;
 
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles16);
 	public static Sprite water = new Sprite(16, 1, 0, SpriteSheet.tiles16);
@@ -16,7 +17,8 @@ public class Sprite {
 	public static Sprite spawn = new Sprite(16, 4, 0, SpriteSheet.tiles16);
 	public static Sprite wood = new Sprite(16, 5, 0, SpriteSheet.tiles16);
 	public static Sprite arrow = new Sprite(16, 6, 0, SpriteSheet.tiles16);
-
+	public static Sprite bomb = new Sprite(16, 7, 0, SpriteSheet.tiles16);
+ 
 	public static Sprite playerSouth = new Sprite(32, 0, 0, SpriteSheet.sprites32);
 	public static Sprite playerNorth = new Sprite(32, 1, 0, SpriteSheet.sprites32);
 	public static Sprite playerEast = new Sprite(32, 2, 0, SpriteSheet.sprites32);
@@ -51,9 +53,13 @@ public class Sprite {
 	public static Sprite playerSouthWest_1 = new Sprite(32, 7, 0, SpriteSheet.sprites32);
 	public static Sprite playerNorthWest_1 = new Sprite(32, 5, 0, SpriteSheet.sprites32);
 	
+	public static Sprite particleNormal = new Sprite(1, MyProperties.particle_color_int);
+	
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
+		width = size;
+		height = size;
 		pixels = new int[SIZE * SIZE];
 		this.x = x * size;
 		this.y = y * size;
@@ -61,8 +67,20 @@ public class Sprite {
 		load();
 	}
 
+	public Sprite(int width, int height, int color){
+		
+		SIZE = -1;
+		this.width = width;
+		this.height = height;
+		pixels = new int[width * height];
+		setColour(color);
+		
+	}
+	
 	public Sprite(int size, int colour) {
 		SIZE = size;
+		height = size;
+		width = size;
 		pixels = new int[SIZE * SIZE];
 		setColour(colour);
 	}
@@ -71,6 +89,16 @@ public class Sprite {
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = colour;
 		}
+	}
+
+	
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	private void load() {

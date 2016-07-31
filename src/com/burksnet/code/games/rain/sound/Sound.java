@@ -8,22 +8,22 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 
 import com.burksnet.code.games.rain.MyProperties;
-	
+
 public class Sound {
 	static final String classPath = System.getProperty("user.dir") + "/res/audio/";
-	public static boolean running = MyProperties.sound;
 
 	public static String mainUrl;
-
+	
 	String fileLocation;
 
 	public static void stop() {
-		running = false;
+		MyProperties.music = false;
+		
 	}
 
 	public static synchronized void playSoundOnce(final String url) {
 		System.out.println("Tried Once");
-		if(running == false)
+		if(!MyProperties.sound)
 			return;
 		new Thread(new Runnable() {
 			public void run() {
@@ -62,7 +62,7 @@ public class Sound {
 				}
 
 				while(true){
-					if(!running){
+					if(!MyProperties.music){
 						mainClip.stop();
 					}
 					try {
@@ -77,7 +77,7 @@ public class Sound {
 	}
 
 	public static void start() {
-		running = true;
+		MyProperties.music = true;
 		playSoundForever(mainUrl);
 
 	}

@@ -5,6 +5,8 @@ import com.burksnet.code.games.rain.graphics.Sprite;
 
 public class WaterTile extends Tile {
 
+	public static boolean solid;
+	
 	public WaterTile(Sprite sprite) {
 		super(sprite);
 	}
@@ -14,7 +16,7 @@ public class WaterTile extends Tile {
 	}
 
 	public boolean isSolid(){
-		return false;
+		return solid;
 	}
 	
 }

@@ -6,6 +6,9 @@ import java.util.List;
 import com.burksnet.code.games.rain.MyProperties;
 import com.burksnet.code.games.rain.entity.Entity;
 import com.burksnet.code.games.rain.entity.Location;
+import com.burksnet.code.games.rain.entity.Projectile;
+import com.burksnet.code.games.rain.entity.particle.Particle;
+import com.burksnet.code.games.rain.entity.spawner.Spawner;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.level.tile.Tile;
 
@@ -20,6 +23,8 @@ public class Level {
 	protected int[] tiles;
 
 	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Projectile> projectiles = new ArrayList<Projectile>();
+	private List<Particle> particles = new ArrayList<Particle>();
 	
 	public Location getSpawnLocation() {
 		return spawnLocation;
@@ -43,6 +48,9 @@ public class Level {
 		loadLevel(path);
 		generateLevel();
 		findSpawn(Tile.col_spawn);
+		
+		add(new Spawner(16 * 16, 62 * 16, Spawner.Type.PARTICLE, 50, this));
+		
 	}
 
 	// Relies on a Tile being 16*16d
@@ -62,6 +70,18 @@ public class Level {
 
 	}
 
+	public boolean tileCollision(double x, double y, double xa, double ya, int size) {
+		boolean solid = false;
+		
+		for(int c = 0; c < 4; c++){
+			double xt = (((int)x + (int)xa) + c % 2 * size  + 3) / 16;
+			double yt = (((int)y + (int)ya) + c / 2 * size + 3D) / 16;
+			if(getTile((int)xt, (int)yt).isSolid()) solid = true;
+		}
+		return solid;
+		
+	}
+
 	protected void loadLevel(String path) {
 	}
 
@@ -69,6 +89,14 @@ public class Level {
 
 		for(int i = 0; i < entities.size(); i++){
 			entities.get(i).update();
+		}
+
+		for(int i = 0; i < projectiles.size(); i++){
+			projectiles.get(i).update();
+		}
+
+		for(int i = 0; i < particles.size(); i++){
+			particles.get(i).update();
 		}
 		
 	}
@@ -80,8 +108,8 @@ public class Level {
 		// TODO fix 16 not being compatible with other stuff!
 		screen.setOffset(xScroll, yScroll);
 		int x0 = xScroll >> 4;
-			int x1 = (xScroll + screen.width + 16) >> 4;
-			int y0 = yScroll >> 4;
+		int x1 = (xScroll + screen.width + 16) >> 4;
+		int y0 = yScroll >> 4;
 			int y1 = (yScroll + screen.height + 16) >> 4;
 
 			for (int y = y0; y < y1; y++) {
@@ -93,6 +121,14 @@ public class Level {
 
 			for(int i = 0; i < entities.size(); i++){
 				entities.get(i).render(screen);
+			}
+
+			for(int i = 0; i < projectiles.size(); i++){
+				projectiles.get(i).render(screen);
+			}
+
+			for(int i = 0; i < particles.size(); i++){
+				particles.get(i).render(screen);
 			}
 			
 	}
@@ -131,9 +167,46 @@ public class Level {
 		entities.add(e);	
 	}
 
+	public void add(Particle e){
+		particles.add(e);	
+	}
+	
+	public void add(Projectile p){
+		projectiles.add(p);
+	}
+
 	public void remove(Entity e) {
 		entities.remove(entities.indexOf(e));
-		
+		if(MyProperties.dev)
+			System.out.println("Entity " + e + " was removed");
+	}
+
+	public void remove(Projectile p){
+		projectiles.remove(projectiles.indexOf(p));
+		if(MyProperties.dev)
+			System.out.println("Projectile " + p + " was removed");
+	}
+
+	public void remove(Particle e) {
+		particles.remove(particles.indexOf(e));
+		if(MyProperties.dev)
+			System.out.println("Particle " + e + " was removed");
+	}
+	
+	public List<Entity> getEntities() {
+
+		return entities;
+	}
+
+	public List<Projectile> getProjectiles(){
+		return projectiles;
+	}
+
+	public void removeAllEntities(){
+		entities = new ArrayList<Entity>();
+	}
+	public void removeAllProjectiles(){
+		projectiles = new ArrayList<Projectile>();
 	}
 	
 }

@@ -17,7 +17,7 @@ public class Mouse implements MouseMotionListener, MouseListener{
 	public static boolean left;
 
 	public static boolean middle;
-
+ 
 	public static boolean right;
 	
 	public void update(){

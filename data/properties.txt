@@ -1,5 +1,6 @@
 dev: false
 #above slows game if lots of particles get spawned
+can_walk_on_water: true
 console_input: true
 music: false
 sound: true
