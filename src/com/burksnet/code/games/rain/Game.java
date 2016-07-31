@@ -260,9 +260,9 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		MyProperties p = new MyProperties();
-		
-		Game.maxFramesPerSecond = p.maxFrames;
-		
+
+		Game.maxFramesPerSecond = MyProperties.maxFrames;
+
 		Game game = new Game();
 		cm = new ConsoleManager("/data/error.txt", game);
 

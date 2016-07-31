@@ -24,10 +24,12 @@ public class ConsoleManager implements Runnable {
 		while (running) {
 
 			String in = ConsoleInput.in.nextLine();
-			processCommand(in);
-
+			if(MyProperties.console_input)
+				processCommand(in);
+			else
+				System.out.println("Console Input Disabled.");
 		}
-
+ 
 	}
 
 	public synchronized void stop() {
@@ -40,6 +42,18 @@ public class ConsoleManager implements Runnable {
 
 		String[] array = cmd.split(" ");
 
+		if (array[0].equalsIgnoreCase("PROPERTY")) {
+			try{
+			if (array.length != 3) {
+				throw new ArrayIndexOutOfBoundsException("Property command must have 2 arguments.");
+			}
+			MyProperties.parse(array[1], array[2]);
+			}catch(ArrayIndexOutOfBoundsException e){
+				e.printStackTrace();
+				System.err.println("Property command must have 2 arguments.");
+			}
+			
+		}
 		if (cmd.equalsIgnoreCase("QUIT")) {
 			game.stop();
 		}

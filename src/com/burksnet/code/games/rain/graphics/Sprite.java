@@ -1,5 +1,7 @@
 package com.burksnet.code.games.rain.graphics;
 
+import com.burksnet.code.games.rain.MyProperties;
+
 public class Sprite {
 
 	public final int SIZE;

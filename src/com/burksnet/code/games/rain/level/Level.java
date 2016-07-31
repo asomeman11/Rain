@@ -3,6 +3,7 @@ package com.burksnet.code.games.rain.level;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.burksnet.code.games.rain.MyProperties;
 import com.burksnet.code.games.rain.entity.Entity;
 import com.burksnet.code.games.rain.entity.Location;
 import com.burksnet.code.games.rain.graphics.Screen;

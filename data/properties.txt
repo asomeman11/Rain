@@ -1,2 +1,10 @@
-sound:true
-max_frames:120
+dev: false
+#above slows game if lots of particles get spawned
+console_input: true
+music: false
+sound: true
+max_frames: 0
+particle_color_int: 0x9a2799
+remove_projectile_on_collision: true
+number_of_particles_on_collision_multipler: 10.0
+#use command 'remove' to remove all projectiles

@@ -1,5 +1,6 @@
 package com.burksnet.code.games.rain.entity;
 
+import com.burksnet.code.games.rain.MyProperties;
 import com.burksnet.code.games.rain.graphics.Screen;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.level.Level;
