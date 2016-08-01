@@ -42,6 +42,9 @@ public class Mouse implements MouseMotionListener, MouseListener{
 	}
 
 	public void releaseAll(){
+		left = false;
+		middle = false;
+		right = false;
 		for(int key = 0; key < keys.length; key++){
 			keys[key] = false;
 		}

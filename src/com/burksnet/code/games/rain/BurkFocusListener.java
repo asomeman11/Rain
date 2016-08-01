@@ -3,7 +3,8 @@ package com.burksnet.code.games.rain;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-import com.burksnet.code.games.rain.input.Keyboard;
+import com.burksnet.code.games.rain.menu.MenuManager;
+import com.burksnet.code.games.rain.menu.PauseMenu;
 
 public class BurkFocusListener implements FocusListener {
 
@@ -15,13 +16,18 @@ public class BurkFocusListener implements FocusListener {
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		game.pause(false);
+		
 		game.getKeyboard().releaseAll();
 		game.getMouse().releaseAll();
 	}
 
 	@Override
 	public void focusLost(FocusEvent e) {
+		
+		if(!MenuManager.isActive()){
+			MenuManager.addMenu(new PauseMenu());
+		}
+		
 		game.getKeyboard().releaseAll();
 		game.getKeyboard().paused = true;
 		game.pause(true);
