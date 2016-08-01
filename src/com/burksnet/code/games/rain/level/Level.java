@@ -25,7 +25,7 @@ public class Level {
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Particle> particles = new ArrayList<Particle>();
-	
+
 	public Location getSpawnLocation() {
 		return spawnLocation;
 	}
@@ -48,9 +48,9 @@ public class Level {
 		loadLevel(path);
 		generateLevel();
 		findSpawn(Tile.col_spawn);
-		
+
 		add(new Spawner(16 * 16, 62 * 16, Spawner.Type.PARTICLE, 50, this));
-		
+
 	}
 
 	// Relies on a Tile being 16*16d
@@ -72,14 +72,15 @@ public class Level {
 
 	public boolean tileCollision(double x, double y, double xa, double ya, int size) {
 		boolean solid = false;
-		
-		for(int c = 0; c < 4; c++){
-			double xt = (((int)x + (int)xa) + c % 2 * size  + 3) / 16;
-			double yt = (((int)y + (int)ya) + c / 2 * size + 3D) / 16;
-			if(getTile((int)xt, (int)yt).isSolid()) solid = true;
+
+		for (int c = 0; c < 4; c++) {
+			double xt = (((int) x + (int) xa) + c % 2 * size + 3) / 16;
+			double yt = (((int) y + (int) ya) + c / 2 * size + 3) / 16;
+			if (getTile((int) xt, (int) yt).isSolid())
+				solid = true;
 		}
 		return solid;
-		
+
 	}
 
 	protected void loadLevel(String path) {
@@ -87,21 +88,41 @@ public class Level {
 
 	public void update() {
 
-		for(int i = 0; i < entities.size(); i++){
+		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).update();
 		}
 
-		for(int i = 0; i < projectiles.size(); i++){
+		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 		}
 
-		for(int i = 0; i < particles.size(); i++){
+		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).update();
 		}
-		
+
 	}
 
 	private void time() {
+	}
+
+	public Entity getEntity(double x, double y) {
+		return getEntity((int) x, (int) y);
+	}
+
+	public Entity getEntity(int x, int y) {
+
+		for (int i = 0; i < entities.size(); i++) {
+
+			Entity e = entities.get(i);
+
+			if (e.x + 8 >= x - 6&& e.x + 8 <= x + 16) {
+				if (e.y + 8 >= y - 6 && e.y + 8 <= y + 16) {
+					return e;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	public void render(int xScroll, int yScroll, Screen screen) {
@@ -110,27 +131,27 @@ public class Level {
 		int x0 = xScroll >> 4;
 		int x1 = (xScroll + screen.width + 16) >> 4;
 		int y0 = yScroll >> 4;
-			int y1 = (yScroll + screen.height + 16) >> 4;
+		int y1 = (yScroll + screen.height + 16) >> 4;
 
-			for (int y = y0; y < y1; y++) {
-				for (int x = x0; x < x1; x++) {
-					getTile(x, y).render(x, y, screen);
+		for (int y = y0; y < y1; y++) {
+			for (int x = x0; x < x1; x++) {
+				getTile(x, y).render(x, y, screen);
 
-				}
 			}
+		}
 
-			for(int i = 0; i < entities.size(); i++){
-				entities.get(i).render(screen);
-			}
+		for (int i = 0; i < entities.size(); i++) {
+			entities.get(i).render(screen);
+		}
 
-			for(int i = 0; i < projectiles.size(); i++){
-				projectiles.get(i).render(screen);
-			}
+		for (int i = 0; i < projectiles.size(); i++) {
+			projectiles.get(i).render(screen);
+		}
 
-			for(int i = 0; i < particles.size(); i++){
-				particles.get(i).render(screen);
-			}
-			
+		for (int i = 0; i < particles.size(); i++) {
+			particles.get(i).render(screen);
+		}
+
 	}
 
 	// Grass = 0xFF00
@@ -141,6 +162,9 @@ public class Level {
 	// TODO Remake this getTile Method. Seems inefficient. May not be.
 
 	public Tile getTile(int x, int y) {
+		
+		//System.out.println("COLOR: " + tiles[x+y*width]);
+		
 		if (x < 0 || y < 0 || x >= width || y >= height) {
 			return Tile.voidTile;
 		}
@@ -159,54 +183,73 @@ public class Level {
 		if (tiles[x + y * width] == Tile.col_wood) {
 			return Tile.wood;
 		}
-
+		if (tiles[x + y * width] == Tile.col_wall) {
+			//System.out.println("AX");
+			return Tile.wall;
+			
+		}
 		return Tile.voidTile;
 	}
 
-	public void add(Entity e){
-		entities.add(e);	
+	public void add(Entity e) {
+		entities.add(e);
 	}
 
-	public void add(Particle e){
-		particles.add(e);	
+	public void add(Particle e) {
+		particles.add(e);
 	}
-	
-	public void add(Projectile p){
+
+	public void add(Projectile p) {
 		projectiles.add(p);
 	}
 
 	public void remove(Entity e) {
 		entities.remove(entities.indexOf(e));
-		if(MyProperties.dev)
+		if (MyProperties.dev)
 			System.out.println("Entity " + e + " was removed");
 	}
 
-	public void remove(Projectile p){
+	public void remove(Projectile p) {
 		projectiles.remove(projectiles.indexOf(p));
-		if(MyProperties.dev)
+		if (MyProperties.dev)
 			System.out.println("Projectile " + p + " was removed");
 	}
 
 	public void remove(Particle e) {
 		particles.remove(particles.indexOf(e));
-		if(MyProperties.dev)
+		if (MyProperties.dev)
 			System.out.println("Particle " + e + " was removed");
 	}
-	
+
 	public List<Entity> getEntities() {
 
 		return entities;
 	}
 
-	public List<Projectile> getProjectiles(){
+	public List<Projectile> getProjectiles() {
 		return projectiles;
 	}
 
-	public void removeAllEntities(){
+	public void removeAllEntities() {
 		entities = new ArrayList<Entity>();
 	}
-	public void removeAllProjectiles(){
+
+	public void removeAllProjectiles() {
 		projectiles = new ArrayList<Projectile>();
 	}
-	
+
+	public void setTile(int x, int y, int newColor) {
+		System.out.println("Set tile");
+
+		if (x >= width || y >= height || x < 0 || y < 0) {
+			return;
+		}
+
+		tiles[x + y * width] = newColor;
+	}
+
+	public Tile getTile(double d, double e) {
+		return getTile((int) d, (int) e);
+	}
+
 }

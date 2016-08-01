@@ -1,12 +1,9 @@
 package com.burksnet.code.games.rain.menu;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import com.burksnet.code.games.rain.MyProperties;
 import com.burksnet.code.games.rain.graphics.Screen;
-import com.burksnet.code.games.rain.sound.Sound;
 
 public class Menu {
 
@@ -16,13 +13,15 @@ public class Menu {
 
 	private int finalX = 300, finalY = 220;
 
-	public Menu(int updatesTillCentered, int xPixelOffset, int yPixelOffset, MenuGraphic g) {
+	protected final byte SHADOW_OFFSET = 4; 
+	
+	public Menu() {
 
 		// this.updatesTillCentered = updatesTillCentered;
-		xOffset = xPixelOffset;
-		yOffset = yPixelOffset;
-		xMov = xOffset / updatesTillCentered;
-		yMov = yOffset / updatesTillCentered;
+		//xOffset = xPixelOffset;
+		//yOffset = yPixelOffset;
+		//xMov = xOffset / updatesTillCentered;
+		//yMov = yOffset / updatesTillCentered;
 
 	}
 
@@ -42,16 +41,6 @@ public class Menu {
 	protected Font f = new Font("Arial", 0, 64);
 	
 	public void render(Screen screen, Graphics g) {
-		g.setFont(f);
-		g.setColor(Color.WHITE);
-		g.drawString("Paused.", 400, 200);
-		if(MyProperties.music)
-			g.drawString("Music On", 400, 280);
-		else g.drawString("Music Off", 400, 280);
-		if(MyProperties.sound)
-			g.drawString("Sound On", 400, 360);
-		else g.drawString("Sound Off", 400, 360);
-		g.drawString("Quit", 400, 430);
 	}
 
 	public void blur(Screen screen, Graphics g) {
