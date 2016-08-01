@@ -4,7 +4,10 @@ import java.io.PrintStream;
 
 import com.burksnet.code.games.rain.Game;
 import com.burksnet.code.games.rain.MyProperties;
+import com.burksnet.code.games.rain.entity.Projectile;
 import com.burksnet.code.games.rain.entity.mob.HittableEnemy;
+import com.burksnet.code.games.rain.entity.mob.Mob;
+import com.burksnet.code.games.rain.entity.spawner.MobSpawner;
 import com.burksnet.code.games.rain.sound.Sound;
 
 public class ConsoleManager implements Runnable {
@@ -73,6 +76,9 @@ public class ConsoleManager implements Runnable {
 		if (cmd.equalsIgnoreCase("REMOVE")) {
 			game.level.removeAllProjectiles();
 		}
+		if (cmd.equalsIgnoreCase("KILLMOBS")) {
+			game.level.removeAllEntities();
+		}
 		if (array[0].equalsIgnoreCase("TP")) {
 			try {
 				if (array.length > 3) {
@@ -94,11 +100,13 @@ public class ConsoleManager implements Runnable {
 		}
 		if (array[0].equalsIgnoreCase("SPAWN")) {
 			try {
-				if (array.length > 3) {
+				if (array.length > 4) {
 					throw new ArrayIndexOutOfBoundsException(array.length - 1);
 				}
 				int local1 = Integer.parseInt(array[1]);
 				int local2 = Integer.parseInt(array[2]);
+				int local3 = Integer.parseInt(array[3]);
+				new MobSpawner(local1, local2, null, local3, Game.game.level);
 				new HittableEnemy(local1, local2, game.level);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
@@ -122,11 +130,43 @@ public class ConsoleManager implements Runnable {
 				System.err.println("\nInvalid Speed Variable. Speed was not an Double.");
 			} catch (ArrayIndexOutOfBoundsException e) {
 				e.printStackTrace();
-				System.err.println("\nInvalid number of paramaters. Two Paramaters Required.");
+				System.err.println("\nInvalid number of paramaters. Three Paramaters Required.");
 			}
 		}
 		if (array[0].equalsIgnoreCase("LEVEL")) {
 			System.err.println("System not yet implemented.");
+		}
+		if (array[0].equalsIgnoreCase("SPEED_PROJECTILE")) {
+			try {
+				if (array.length > 2) {
+					throw new ArrayIndexOutOfBoundsException(array.length - 1);
+				}
+				double local1 = Double.parseDouble(array[1]);
+				System.out.println("Projectile Speed changed.");
+				Projectile.projectileSpeed = local1;
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				System.err.println("\nInvalid Speed Variable. Speed was not an Double.");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				e.printStackTrace();
+				System.err.println("\nInvalid number of paramaters. One Paramaters Required.");
+			}
+		}
+		if (array[0].equalsIgnoreCase("FREZEE_MOBS")) {
+			try {
+				if (array.length > 2) {
+					throw new ArrayIndexOutOfBoundsException(array.length - 1);
+				}
+				double local1 = Double.parseDouble(array[1]);
+				System.out.println("mobs frozen.");
+				Mob.frezee_mobs = local1;
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				System.err.println("\nInvalid Speed Variable. Speed was not an Double.");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				e.printStackTrace();
+				System.err.println("\nInvalid number of paramaters. One Paramaters Required.");
+			}
 		}
 	}
 }

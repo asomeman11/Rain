@@ -2,6 +2,10 @@ package com.burksnet.code.games.rain.console;
 
 public class ConsoleException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4103268543967902446L;
 	private String message;
 
 	public ConsoleException(String message) {
