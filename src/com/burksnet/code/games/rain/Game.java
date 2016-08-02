@@ -24,17 +24,17 @@ import com.burksnet.code.games.rain.input.Keyboard;
 import com.burksnet.code.games.rain.input.Mouse;
 import com.burksnet.code.games.rain.level.Level;
 import com.burksnet.code.games.rain.level.SpawnLevel;
-import com.burksnet.code.games.rain.menu.Menu;
-import com.burksnet.code.games.rain.menu.PauseMenu;
+import com.burksnet.code.games.rain.menu.MainMenu;
+import com.burksnet.code.games.rain.menu.MenuManager;
 import com.burksnet.code.games.rain.sound.Sound;
 
 public class Game extends Canvas implements Runnable {
-
+	
 	private static final long serialVersionUID = 1L;
-	private static final double VERSION = 0.0;
+	private static final double VERSION = 1.0;
 	private static String title = "Rain";
 
-	private boolean paused = false;
+	
 
 	private UserInterface ui;
 	
@@ -56,10 +56,10 @@ public class Game extends Canvas implements Runnable {
 	public Level level;
 	private BurkFocusListener focus;
 	public Player player;
-	public Menu pauseMenu;
 	public Sound sound;
 	private boolean running = false;
-
+	private boolean started = false;
+	
 	private Screen screen;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -83,7 +83,6 @@ public class Game extends Canvas implements Runnable {
 		// ADD THE THING
 		level = new SpawnLevel("/maps/spawn_new.png");
 		player = new Player(level.getSpawnLocation(), key, level);
-		pauseMenu = new PauseMenu(35, 700, 0);
 
 		addListeners();
 
@@ -104,9 +103,9 @@ public class Game extends Canvas implements Runnable {
 		{  
 			@Override
 			public void componentMoved(ComponentEvent evt) {
-			game.pause(true);
-			key.releaseAll();
-			mouse.releaseAll();
+				game.pause(true);
+				key.releaseAll();
+				mouse.releaseAll();
 			}
 
 			@Override
@@ -132,6 +131,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public synchronized void start() {
+		MenuManager.addMenu(new MainMenu());
 		running = true;
 
 		consoleThread = new Thread(cm, "Console Manager");
@@ -141,6 +141,10 @@ public class Game extends Canvas implements Runnable {
 		Sound.playSoundForever("main.wav");
 	}
 
+	public void startGame(){
+		started = true;
+	}
+	
 	public synchronized void stop() {
 		System.out.println("Application Terminated.");
 		finalExit();
@@ -214,7 +218,7 @@ public class Game extends Canvas implements Runnable {
 
 		screen.init(g);
 		
-		if(!paused){
+		if(!MenuManager.isActive()){
 			screen.clear();
 			double xScroll = player.x - screen.width / 2, yScroll = player.y - screen.height / 2;
 			level.render((int)xScroll, (int)yScroll, screen);
@@ -233,6 +237,8 @@ public class Game extends Canvas implements Runnable {
 
 
 		}
+		
+		
 		
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
@@ -256,15 +262,16 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		if (paused) {
-			pauseMenu.render(screen, g);
-		}
+		//TODO Move this up once its ready
+		MenuManager.render(screen, g);
 		g.dispose();
 		bs.show();
 	}
 
 	private void update() {
 
+		
+		
 		if(fadeToBlack){
 			if(timeTillBlack == 0){
 				finalExit();
@@ -278,22 +285,21 @@ public class Game extends Canvas implements Runnable {
 		key.update();
 		mouse.update();
 
-		updateIgnorePause();
-		if (!paused) {
-			updateWithPause();
+		
+		updateIgnoreMenu();
+		if (!MenuManager.isActive()) {
+			updateWithoutMenu();
 		}
 		mouse.releaseAll();
 	}
 
-	private void updateIgnorePause() {
-
-		paused = key.paused;
-		if (paused) {
-			pauseMenu.update();
-		}
+	//Constant
+	private void updateIgnoreMenu() {
+		MenuManager.update();
 	}
 
-	private void updateWithPause() {
+	//No Menu active
+	private void updateWithoutMenu() {
 		player.update();
 		level.update();
 	}
@@ -351,7 +357,15 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void pause(boolean b) {
+		if(!started)
+			return;
 		key.paused = b;
+	}
+
+	public void regenGen() {
+		level = new SpawnLevel("/maps/spawn_new.png");
+		player = new Player(level.getSpawnLocation(), key, level);
+		
 	}
 
 }

@@ -2,7 +2,7 @@ dev: false
 #above slows game if lots of particles get spawned
 can_walk_on_water: true
 console_input: true
-music: false
+music: true
 sound: true
 max_frames: 0
 particle_color_int: 0x9a2799
