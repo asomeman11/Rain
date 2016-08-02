@@ -30,14 +30,16 @@ public class Player extends Mob {
 
 	public Player(int x, int y, Keyboard input, Level level) {
 		super(level);
-		mouse = input.getMouse();
+		size = 32;
+		
 
 		super.bottomOfMobCollisionBound = 15;
 		super.topOfMobCollisionBound = 0;
 
 		this.x = x;
 		this.y = y;
-		this.input = input;
+		this.input = Game.game.getKeyboard();
+		mouse = input.getMouse();
 	}
 
 	public Player(Location location, Keyboard input, Level level) {
@@ -61,6 +63,61 @@ public class Player extends Mob {
 
 		clear();
 
+	}
+
+	public void move(int xa, int ya) {
+
+		if (xa != 0 && ya != 0) {
+			move(xa, 0);
+			move(0, ya);
+			return;
+		}
+
+		if (xa > 0)
+			dir = Direction.EAST;
+		if (xa < 0)
+			dir = Direction.WEST;
+		if (ya > 0)
+			dir = Direction.SOUTH;
+		if (ya < 0)
+			dir = Direction.NORTH;
+		double xb = xa * speed, yb = ya * speed;
+		if (!playerCollision(x, y, xb, yb, 16, 16)) {
+			x += xb;
+			y += yb;
+		} else {
+			// level.add(new Particle((int)x, (int)y, 50, 5000, level));
+		}
+
+	}
+	
+	private boolean playerCollision(double x, double y, double xb, double yb, int width, int height) {
+		boolean collision = false;
+		
+		int nx = (int) (x + xb), ny = (int) (y + yb);
+		
+		width /= 2;
+		height /= 2;
+		
+		if (level.getTile((nx - width) / 16, ny / 16).isSolid()){
+			collision = true;
+		}
+		if (level.getTile((nx + width) / 16, ny / 16).isSolid())
+			collision = true;
+		if (level.getTile(nx / 16, (ny + height + 7) / 16).isSolid())
+			collision = true;
+		if (level.getTile(nx / 16, (ny - height + 8) / 16).isSolid())
+			collision = true;
+		if (level.getTile((nx + width) / 16, (ny + height) / 16).isSolid())
+			collision = true;
+		if (level.getTile((nx - width) / 16, (ny - height) / 16).isSolid())
+			collision = true;
+		if (level.getTile((nx - width) / 16, (ny + height) / 16).isSolid())
+			collision = true;
+		if (level.getTile((nx + width) / 16, (ny - height) / 16).isSolid())
+			collision = true;
+		
+		return collision;
 	}
 
 	private void clear() {
