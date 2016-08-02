@@ -15,19 +15,21 @@ public abstract class Tile {
 	public static Tile spawn = new SpawnTile(Sprite.spawn);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	public static Tile wood = new WoodTile(Sprite.wood);
+	public static Tile wall = new WallTile(Sprite.voidSprite);
 
 	// Grass = 0xFF00
 	// Flower = 0xFFFF00
 	// Rock = 0x7f7f00
 	// Water = 0x0000ff
 	// SpawnTile 0xffabcedf
+	public static final int col_wall = 0xff000000;
 	public static final int col_grass = 0xff00ff00;
 	public static final int col_flower = 0xffffff00;
 	public static final int col_rock = 0xff7f7f00;
 	public static final int col_water = 0xff0000ff;
 	public static final int col_spawn = 0xffabcdef;
 	public static final int col_wood = 0xffff8500;
-	
+
 	public Tile(Sprite sprite) {
 		this.sprite = sprite;
 	}
@@ -37,6 +39,10 @@ public abstract class Tile {
 	}
 
 	public boolean isSolid() {
+		return false;
+	}
+
+	public boolean breakable() {
 		return false;
 	}
 

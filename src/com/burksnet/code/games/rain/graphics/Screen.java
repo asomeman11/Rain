@@ -67,7 +67,7 @@ public class Screen {
 
 	public void renderText(int xp, int yp, String s){
 		
-		
+		//Maniplulate pixels array;
 		
 	}
 	

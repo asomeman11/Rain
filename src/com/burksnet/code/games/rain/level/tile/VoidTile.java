@@ -18,4 +18,8 @@ public class VoidTile extends Tile {
 		return true;
 	}
 
+	public boolean breakable() {
+		return false;
+	}
+	
 }

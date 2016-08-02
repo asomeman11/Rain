@@ -1,7 +1,6 @@
 package com.burksnet.code.games.rain.entity;
 
-import java.util.List;
-
+import com.burksnet.code.games.rain.entity.mob.Mob;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.level.Level;
 
@@ -12,7 +11,8 @@ public abstract class Projectile extends Entity{
 	protected Sprite sprite;
 	protected double nx, ny;
 	protected double speed, rateOfFire, range, damage;
-
+	public static double projectileSpeed = 1;
+	public static double strong_projectile_rof = 1;
 	protected boolean spawnedParticle = false;
 
 	public Projectile(double x, double y, double dir, Level level) {
@@ -36,14 +36,15 @@ public abstract class Projectile extends Entity{
 
 	}
 
-	private void collision() {
-		List<Entity> l = level.getEntities();
-
-
-
-
-
-
+	protected Mob collision(double x, double y, double xa, double ya){
+		
+		Entity e = level.getEntity(x + xa, y + ya);
+		
+		if(e instanceof Mob){
+			return (Mob) e;
+		}
+		
+		return null;
 	}
 
 }
