@@ -25,6 +25,14 @@ public class MainUI extends UserInterface{
 		}
 	}
 	
+	public void update(){
+		
+		//UPDATE STUFF
+		
+		System.out.println("Update called");
+		
+	}
+	
 	
 	
 }

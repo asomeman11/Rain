@@ -10,6 +10,7 @@ import java.util.Properties;
 import com.burksnet.code.games.rain.graphics.Sprite;
 import com.burksnet.code.games.rain.level.tile.WaterTile;
 import com.burksnet.code.games.rain.sound.Sound;
+import com.burksnet.code.games.rain.util.Extfilemanager;
 
 public class MyProperties {
 	public static boolean dev = false;
@@ -21,8 +22,9 @@ public class MyProperties {
 	public static boolean console_input;
 	public static int particle_color_int;
 	public static boolean can_walk_on_water;
+	public static boolean close_launcher_on_game_exit = false;
 	
-	public MyProperties(){
+	public MyProperties() throws IOException{
 		try {
 			File file = new File(System.getProperty("user.dir") + "/data/properties.txt");
 			FileInputStream fileInput = new FileInputStream(file);
@@ -38,6 +40,7 @@ public class MyProperties {
 				parse(key, value);
 			}
 		} catch (FileNotFoundException e) {
+			Extfilemanager.Properties();
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -95,6 +98,9 @@ public class MyProperties {
 		}
 		if(key.equalsIgnoreCase("CONSOLE_INPUT")){
 			MyProperties.console_input = Boolean.parseBoolean(value);
+		}
+		if(key.equalsIgnoreCase("close_launcher_on_game_exit")){
+			MyProperties.close_launcher_on_game_exit = Boolean.parseBoolean(value);
 		}
 	}
 	 

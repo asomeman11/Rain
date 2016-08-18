@@ -1,5 +1,7 @@
 package com.burksnet.code.games.rain.console;
 
+import com.asomeman11.code.rain.launcher.Log.LogReader;
+
 public class ConsoleException extends Exception {
 
 	/**
@@ -10,6 +12,7 @@ public class ConsoleException extends Exception {
 
 	public ConsoleException(String message) {
 		this.message = message;
+		
 	}
 
 	public void printExceptionMessage() {

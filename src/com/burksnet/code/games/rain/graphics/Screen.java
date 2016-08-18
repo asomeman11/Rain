@@ -3,6 +3,8 @@ package com.burksnet.code.games.rain.graphics;
 import java.awt.Graphics;
 import java.util.Random;
 
+import javax.swing.text.JTextComponent;
+
 import com.burksnet.code.games.rain.level.tile.Tile;
 
 public class Screen {
@@ -16,6 +18,8 @@ public class Screen {
 	private Graphics graphics;
 	
 	public int xOffset, yOffset;
+	
+	public JTextComponent Chat;
 
 	public int[] tiles = new int[mapSize * mapSize]; // 4096
 
@@ -68,7 +72,7 @@ public class Screen {
 	public void renderText(int xp, int yp, String s){
 		
 		//Maniplulate pixels array;
-		
+
 	}
 	
 	public void renderTile(int xp, int yp, Tile tile) {

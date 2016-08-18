@@ -11,5 +11,5 @@ public class SubMenu extends Menu {
 	public Menu getCreator(){
 		return creator;
 	}
-	
+
 }

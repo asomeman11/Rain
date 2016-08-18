@@ -5,7 +5,7 @@ import com.burksnet.code.games.rain.graphics.Sprite;
 
 public class UserInterface {
 
-	private boolean active;
+	protected boolean active;
 	
 	public static UserInterface mainUI = new MainUI();
 	
@@ -31,4 +31,7 @@ public class UserInterface {
 		return active;
 	}
 	
+	public void activate(boolean act){
+		active = act;
+	}
 }

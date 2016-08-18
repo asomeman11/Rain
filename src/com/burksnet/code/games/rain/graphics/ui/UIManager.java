@@ -8,13 +8,14 @@ import com.burksnet.code.games.rain.graphics.Screen;
 public class UIManager {
 
 	private List<UserInterface> ui = new ArrayList<UserInterface>();
-	private List<Boolean> active = new ArrayList<Boolean>();
+	
 	
 	Boolean b = new Boolean(true);
 	
 	public void update(){
 		for(int i = 0; i < ui.size(); i++){
-			if(active.get(i).booleanValue()){
+			UserInterface tmp = ui.get(i);
+			if(tmp.isActive()){
 				ui.get(i).update();
 			}
 		}
@@ -27,6 +28,7 @@ public class UIManager {
 			}
 		}
 	}
+	
 	
 	
 }

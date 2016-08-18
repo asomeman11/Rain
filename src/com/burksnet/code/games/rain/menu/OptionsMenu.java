@@ -12,7 +12,7 @@ import com.burksnet.code.games.rain.sound.Sound;
 public class OptionsMenu extends SubMenu {
 	
 	private float soundBarPercent = (Sound.getVolume() + 35) * 2;
-	
+
 	public OptionsMenu(Menu creator){
 		super(creator);
 	}
@@ -23,6 +23,7 @@ public class OptionsMenu extends SubMenu {
 			if(Mouse.getY() > 160 && Mouse.getY() <= 210){
 				if(Mouse.getX() > 400 && Mouse.getX() <= 700){
 					MenuManager.removeMenu();
+
 				}
 			}
 			

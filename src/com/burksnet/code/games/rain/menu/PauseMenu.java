@@ -21,6 +21,7 @@ public class PauseMenu extends Menu{
 				if(Mouse.getX() > 400 && Mouse.getX() <= 620){
 					System.out.println("Options");
 					MenuManager.addMenu(new OptionsMenu(this));
+
 				}
 			}
 			if(Mouse.getY() > 250 && Mouse.getY() <= 300) {

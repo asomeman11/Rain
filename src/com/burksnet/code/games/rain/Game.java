@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -27,8 +28,10 @@ import com.burksnet.code.games.rain.level.SpawnLevel;
 import com.burksnet.code.games.rain.menu.MainMenu;
 import com.burksnet.code.games.rain.menu.MenuManager;
 import com.burksnet.code.games.rain.sound.Sound;
+import com.asomeman11.code.rain.launcher.Launcher;
 
 public class Game extends Canvas implements Runnable {
+	
 	
 	private static final long serialVersionUID = 1L;
 	private static final double VERSION = 1.0;
@@ -46,6 +49,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static final int UPDATES_PER_SECOND = 60;
 	private static int maxFramesPerSecond = 0;
+	
 
 	private static ConsoleManager cm;
 	public static Game game;
@@ -57,7 +61,7 @@ public class Game extends Canvas implements Runnable {
 	private BurkFocusListener focus;
 	public Player player;
 	public Sound sound;
-	private boolean running = false;
+	public static boolean running = false;
 	private boolean started = false;
 	
 	private Screen screen;
@@ -70,7 +74,6 @@ public class Game extends Canvas implements Runnable {
 	private boolean fadeToBlackGo;
 
 	public Game() {
-
 		game = this;
 		
 		ui = new MainUI();
@@ -87,6 +90,7 @@ public class Game extends Canvas implements Runnable {
 		addListeners();
 
 	}
+
 
 	private void addListeners() {
 
@@ -148,15 +152,21 @@ public class Game extends Canvas implements Runnable {
 	public synchronized void stop() {
 		System.out.println("Application Terminated.");
 		finalExit();
-	}
+		}
 
 	private synchronized void finalExit(){
 		
 		running = false;
 		Sound.stop();
 		cm.stop();
-		System.exit(0);
-		
+		if (Launcher.closelauncher){
+			System.exit(0);
+		}
+		else{
+			frame.setVisible(false);
+			Launcher.ConsoleOut();
+		}
+			
 	}
 
 
@@ -334,8 +344,12 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		MyProperties p = new MyProperties();
-
+		try {
+			MyProperties p = new MyProperties();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (!Launcher.secondrun){
 		Game.maxFramesPerSecond = MyProperties.maxFrames;
 
 		Game game = new Game();
@@ -343,7 +357,7 @@ public class Game extends Canvas implements Runnable {
 
 		// Sets Necessary Window Settings such as title
 		game.setWindowSettings();
-
+		}
 		game.start();
 
 	}
@@ -368,4 +382,13 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 
-}
+
+	public void write(int b) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	}
+
+
+

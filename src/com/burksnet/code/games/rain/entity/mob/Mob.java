@@ -22,8 +22,8 @@ public abstract class Mob extends Entity {
 	protected Sprite sprite;
 	protected Direction dir = Direction.NORTH;
 	protected boolean moving = false;
-	public static double frezee_mobs = 1;
-	public static double speed = 1 * frezee_mobs;
+	public static boolean frezee_mobs;
+	public static double speed = 1;
 
 	public void shootNormal(double x, double y, double dir) {
 

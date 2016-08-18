@@ -6,7 +6,6 @@ import com.burksnet.code.games.rain.Game;
 import com.burksnet.code.games.rain.MyProperties;
 import com.burksnet.code.games.rain.entity.Projectile;
 import com.burksnet.code.games.rain.entity.mob.HittableEnemy;
-import com.burksnet.code.games.rain.entity.mob.Mob;
 import com.burksnet.code.games.rain.entity.spawner.MobSpawner;
 import com.burksnet.code.games.rain.sound.Sound;
 
@@ -151,22 +150,7 @@ public class ConsoleManager implements Runnable {
 				e.printStackTrace();
 				System.err.println("\nInvalid number of paramaters. One Paramaters Required.");
 			}
-		}
-		if (array[0].equalsIgnoreCase("FREZEE_MOBS")) {
-			try {
-				if (array.length > 2) {
-					throw new ArrayIndexOutOfBoundsException(array.length - 1);
-				}
-				double local1 = Double.parseDouble(array[1]);
-				System.out.println("mobs frozen.");
-				Mob.frezee_mobs = local1;
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				System.err.println("\nInvalid Speed Variable. Speed was not an Double.");
-			} catch (ArrayIndexOutOfBoundsException e) {
-				e.printStackTrace();
-				System.err.println("\nInvalid number of paramaters. One Paramaters Required.");
-			}
-		}
+
+	}	
 	}
 }
